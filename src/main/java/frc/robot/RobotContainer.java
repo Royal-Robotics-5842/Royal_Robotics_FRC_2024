@@ -13,6 +13,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -30,9 +31,6 @@ public class RobotContainer {
 
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -44,6 +42,7 @@ public class RobotContainer {
       () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> false));
+
     
   }
 
@@ -63,7 +62,6 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**

@@ -125,7 +125,6 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, getState().angle);
         driveMotor.set(state.speedMetersPerSecond/DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
 
-        System.out.println("getState().angle" + getState().angle);
         turnMotor.set(turningPidController.calculate(getTurnPosition(), state.angle.getDegrees()));
         // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
         // .getdegrees and .getangle

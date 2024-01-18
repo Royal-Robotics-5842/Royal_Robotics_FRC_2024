@@ -16,35 +16,35 @@ import frc.robot.Constants.DriveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new SwerveSubsystem. */
-  private final SwerveModule frontLeft = new SwerveModule(
+  public final SwerveModule frontLeft = new SwerveModule(
             DriveConstants.kFrontLeftDriveMotorPort,
             DriveConstants.kFrontLeftTurningMotorPort,
             DriveConstants.kFrontLeftDriveMotorReversed,
             DriveConstants.kFrontLeftTurningMotorReversed,
             DriveConstants.kFrontLeftTurnAbsoluteEncoderPort);
 
-    private final SwerveModule frontRight = new SwerveModule(
+    public final SwerveModule frontRight = new SwerveModule(
             DriveConstants.kFrontRightDriveMotorPort,
             DriveConstants.kFrontRightTurningMotorPort,
             DriveConstants.kFrontRightDriveMotorReversed,
             DriveConstants.kFrontRightTurningMotorReversed,
             DriveConstants.kFrontRightTurnAbsoluteEncoderPort);
 
-    private final SwerveModule backLeft = new SwerveModule(
+    public final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort,
             DriveConstants.kBackLeftTurningMotorPort,
             DriveConstants.kBackLeftDriveMotorReversed,
             DriveConstants.kBackLeftTurningMotorReversed,
             DriveConstants.kBackLeftTurnAbsoluteEncoderPort);
 
-    private final SwerveModule backRight = new SwerveModule(
+    public final SwerveModule backRight = new SwerveModule(
             DriveConstants.kBackRightDriveMotorPort,
             DriveConstants.kBackRightTurningMotorPort,
             DriveConstants.kBackRightDriveMotorReversed,
             DriveConstants.kBackRightTurningMotorReversed,
             DriveConstants.kBackRightTurnAbsoluteEncoderPort);
 
-    private AHRS gyro = new AHRS(SPI.Port.kMXP);
+    public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
   public SwerveSubsystem() 
   {

@@ -49,8 +49,6 @@ public class SwerveJoystickCmd extends Command {
         double ySpeed = ySpdFunction.get();
         double turningSpeed = turningSpdFunction.get();
 
-        System.out.println("XSpeed - " + xSpdFunction.get());
-
         // 2. Apply deadband
         xSpeed = Math.abs(xSpeed) > Constants.OIConstants.kDeadband ? xSpeed : 0.0;
         ySpeed = Math.abs(ySpeed) > Constants.OIConstants.kDeadband ? ySpeed : 0.0;
@@ -78,6 +76,9 @@ public class SwerveJoystickCmd extends Command {
 
         // 6. Output each module states to wheels
         swerveSubsystem.setModuleStates(moduleStates);
+
+        
+        
     }
 
     @Override

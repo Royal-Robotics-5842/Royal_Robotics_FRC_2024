@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.SwerveSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+
 
   private RobotContainer m_robotContainer;
 
@@ -51,7 +54,14 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() 
+  {
+        System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
+        System.out.println(swerveSubsystem.frontRight.getAbsoluteEncoderPositon());
+        System.out.println(swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
+        System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
+
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
