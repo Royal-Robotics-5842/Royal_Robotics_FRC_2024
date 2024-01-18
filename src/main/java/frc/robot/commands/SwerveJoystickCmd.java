@@ -40,6 +40,12 @@ public class SwerveJoystickCmd extends Command {
   @Override
   public void initialize() {}
 
+  @Override
+  public boolean runsWhenDisabled()
+  {
+    return true;
+  }
+  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute()
@@ -77,6 +83,12 @@ public class SwerveJoystickCmd extends Command {
         // 6. Output each module states to wheels
         swerveSubsystem.setModuleStates(moduleStates);
 
+
+        //System.out.println("hi" + swerveSubsystem.frontLeft.getDrivePosition());
+        System.out.println("hi" + swerveSubsystem.frontRight.getAbsoluteEncoderPositon());
+        //System.out.println(swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
+        //System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
+
         
         
     }
@@ -90,5 +102,7 @@ public class SwerveJoystickCmd extends Command {
     public boolean isFinished() {
         return false;
     }
+
+  
 }
 

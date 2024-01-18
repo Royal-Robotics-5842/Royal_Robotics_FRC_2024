@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.CANcoder;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -23,7 +24,7 @@ public class SwerveModule {
     private final PIDController turningPidController; //Initializing PID controller to turn the modules with the joystick
     
     private final CANcoder CANabsoluterEncoder; //Initializing CANCoder to always know where the wheels are rotated
-
+    
     /*
     I know its in the video but we dont use these, the video is outdated. We go into the pheonix tuner and manually do this
 
@@ -98,11 +99,10 @@ public class SwerveModule {
     {
         return turnBuiltInEncoder.getVelocity();
     }
-    //
-
+    
     public double getAbsoluteEncoderPositon() //Getting the angle of the absolute encoder
     {
-        return CANabsoluterEncoder.getAbsolutePosition().getValue();
+        return CANabsoluterEncoder.getAbsolutePosition().getValueAsDouble();
     }
     public void resetEncoders() //Reseting Encoders
     {

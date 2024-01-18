@@ -17,8 +17,6 @@ import frc.robot.subsystems.SwerveSubsystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-
 
   private RobotContainer m_robotContainer;
 
@@ -56,11 +54,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() 
   {
-        System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
-        System.out.println(swerveSubsystem.frontRight.getAbsoluteEncoderPositon());
-        System.out.println(swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
-        System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
-
+       
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
