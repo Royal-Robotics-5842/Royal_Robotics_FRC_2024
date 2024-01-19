@@ -65,9 +65,6 @@ public class SwerveModule {
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
 
-        turnBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
-        turnBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
-
         //Making the pid stuff for turning the wheels per joytick output
         turningPidController = new PIDController(Constants.ModuleConstants.kTurnP,0, 0);
 
@@ -83,11 +80,6 @@ public class SwerveModule {
         return driveBuiltInEncoder.getPosition();
     }
 
-    public double getTurnPosition()
-    {
-        return turnBuiltInEncoder.getPosition();
-    }
-    //
 
     //Getting the velocity of both motors
     public double getDriveVelocity()
@@ -100,19 +92,19 @@ public class SwerveModule {
         return turnBuiltInEncoder.getVelocity();
     }
     
-    public double getAbsoluteEncoderPositon() //Getting the angle of the absolute encoder
+    public double getAbsoluteEncoderPositon() //Getting the angle of the absolute encoder in degrees
     {
-        return CANabsoluterEncoder.getAbsolutePosition().getValueAsDouble();
+        return CANabsoluterEncoder.getAbsolutePosition().getValueAsDouble() * 360;
     }
+    
     public void resetEncoders() //Reseting Encoders
     {
         driveBuiltInEncoder.setPosition(0);
-        turnBuiltInEncoder.setPosition(getAbsoluteEncoderPositon()); //built in and absolute are returning same value now
     }
 
     public SwerveModuleState getState()
     {
-        return new SwerveModuleState(getDriveVelocity(),new Rotation2d(getAbsoluteEncoderPositon()));      
+        return new SwerveModuleState(getDriveVelocity(),new Rotation2d(getAbsoluteEncoderPositon()*(180/Math.PI)));      
     }
 
     public void setDesiredState(SwerveModuleState state)
@@ -125,7 +117,7 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, getState().angle);
         driveMotor.set(state.speedMetersPerSecond/DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
 
-        turnMotor.set(turningPidController.calculate(getTurnPosition(), state.angle.getDegrees()));
+        turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), state.angle.getDegrees()));
         // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
         // .getdegrees and .getangle
     }
