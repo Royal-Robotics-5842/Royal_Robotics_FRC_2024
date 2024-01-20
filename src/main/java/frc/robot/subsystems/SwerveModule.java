@@ -19,7 +19,7 @@ public class SwerveModule {
     private final CANSparkMax turnMotor; //Initializing turn motor controller 
 
     private final RelativeEncoder driveBuiltInEncoder; //Initializing drive motor encoder
-    private final RelativeEncoder turnBuiltInEncoder; //Initializing turn motor encoder
+    //private final RelativeEncoder turnBuiltInEncoder; //Initializing turn motor encoder
 
     private final PIDController turningPidController; //Initializing PID controller to turn the modules with the joystick
     
@@ -59,11 +59,25 @@ public class SwerveModule {
 
         //Getting the value of the built in encoders of the motors
         driveBuiltInEncoder = driveMotor.getEncoder();
-        turnBuiltInEncoder = turnMotor.getEncoder();
 
         //Setting the conversion factors for the encoders
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
+
+        //PRINT THE NAITVE BUILT IN ENCODER VALUE AND SEE WHAT HAPPENS
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Making the pid stuff for turning the wheels per joytick output
         turningPidController = new PIDController(Constants.ModuleConstants.kTurnP,0, 0);
@@ -87,10 +101,7 @@ public class SwerveModule {
         return driveBuiltInEncoder.getVelocity();
     }
 
-    public double getTurnVelocity()
-    {
-        return turnBuiltInEncoder.getVelocity();
-    }
+    
     
     public double getAbsoluteEncoderPositon() //Getting the angle of the absolute encoder in degrees
     {
@@ -104,7 +115,7 @@ public class SwerveModule {
 
     public SwerveModuleState getState()
     {
-        return new SwerveModuleState(getDriveVelocity(),new Rotation2d(getAbsoluteEncoderPositon()*(180/Math.PI)));      
+        return new SwerveModuleState(getDriveVelocity(),new Rotation2d(getAbsoluteEncoderPositon()*(Math.PI/180)));      
     }
 
     public void setDesiredState(SwerveModuleState state)
