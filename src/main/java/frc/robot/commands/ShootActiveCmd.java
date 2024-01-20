@@ -6,22 +6,20 @@ import frc.robot.subsystems.ShootSubsystem;
 public class ShootActiveCmd extends Command  {
 
     private ShootSubsystem shootSubsystem;
-    private boolean active;
 
-    public ShootActiveCmd(ShootSubsystem shootSubsystem, boolean avtive) {
-        this.active = active;
+    public ShootActiveCmd(ShootSubsystem shootSubsystem) {
         this.shootSubsystem = shootSubsystem;
         addRequirements(shootSubsystem);
     }
 
     @Override
     public void initialize() {
-        System.out.println("ShootActiceCmd started!");
+        System.out.println("ShootActiveCmd started!");
     }
 
     @Override
     public void execute() {
-        shootSubsystem.setPosition(active);
+        shootSubsystem.setPosition();
     }
 
     @Override
@@ -31,7 +29,7 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public boolean isFinished() {
-        return !active;
+        return false;
     }
 
     

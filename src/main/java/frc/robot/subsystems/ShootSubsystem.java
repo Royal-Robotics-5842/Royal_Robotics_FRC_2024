@@ -13,16 +13,16 @@ public class ShootSubsystem extends SubsystemBase {
     private CANSparkMax shootMotor1 = new CANSparkMax(0, MotorType.kBrushless); 
     private CANSparkMax shootMotor2 = new CANSparkMax(1, MotorType.kBrushless);
     
-    public ShootSubsystem() {    
+    public ShootSubsystem() {
+        shootMotor1.restoreFactoryDefaults();
+        shootMotor2.restoreFactoryDefaults();
+        
+        shootMotor1.setInverted(true);
+        shootMotor2.setInverted(false);
     }
-    public void setPosition(boolean active) {
-        if (active) {
+    public void setPosition() {
             shootMotor1.set(.5);
             shootMotor2.set(0.5);
-        } else {
-            shootMotor1.set(0);
-            shootMotor2.set(0);
-        }
     }
      
 }
