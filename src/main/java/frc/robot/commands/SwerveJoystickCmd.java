@@ -84,13 +84,13 @@ public class SwerveJoystickCmd extends Command {
         swerveSubsystem.setModuleStates(moduleStates);
 
 
-        //System.out.println("hi" + swerveSubsystem.frontLeft.getDrivePosition());
+        System.out.println("hi" + swerveSubsystem.frontLeft.getDrivePosition());
         //System.out.println("hi" + swerveSubsystem.frontRight.getDrivePosition());
         //System.out.println(swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
         //System.out.println(swerveSubsystem.backLeft.getDrivePosition());
         //System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
         //System.out.println(swerveSubsystem.backRight.getAbsoluteEncoderPositon());
-        System.out.println(swerveSubsystem.backRight.getDrivePosition());
+        //System.out.println(swerveSubsystem.backRight.getDrivePosition());
 
         
         

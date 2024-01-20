@@ -37,8 +37,7 @@ public class SwerveModule {
                         int turnMotorCANID,
                         boolean driveMotorRevered,
                         boolean turnMotorReversed,
-                        int absoluteEncoderCANID,
-                        boolean driveEncoderReversed)
+                        int absoluteEncoderCANID)
     {
         CANabsoluterEncoder = new CANcoder(absoluteEncoderCANID);
         
@@ -60,7 +59,6 @@ public class SwerveModule {
 
         //Getting the value of the built in encoders of the motors
         driveBuiltInEncoder = driveMotor.getEncoder();
-        driveBuiltInEncoder.setInverted(driveEncoderReversed);
 
         //Setting the conversion factors for the encoders
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
