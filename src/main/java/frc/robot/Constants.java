@@ -64,12 +64,18 @@ public final class Constants {
       public static final boolean kFrontLeftTurningMotorReversed = false;
       public static final boolean kBackLeftTurningMotorReversed = false;
       public static final boolean kFrontRightTurningMotorReversed = false; 
-      public static final boolean kBackRightTurningMotorReversed = true;
+      public static final boolean kBackRightTurningMotorReversed = false;
 
       public static final boolean kFrontLeftDriveMotorReversed = false;
       public static final boolean kBackLeftDriveMotorReversed = false;
-      public static final boolean kFrontRightDriveMotorReversed = false;
-      public static final boolean kBackRightDriveMotorReversed = false;
+      public static final boolean kFrontRightDriveMotorReversed = true;
+      public static final boolean kBackRightDriveMotorReversed = true;
+
+      public static final boolean kFrontLeftDriveEncoderReversed= false;
+      public static final boolean kBackLeftDriveEncoderReversed = false;
+      public static final boolean kFrontRightDriveEncoderReversed = false; 
+      public static final boolean kBackRightDriveEncoderReversed = false;
+
 
       public static final int kFrontLeftTurnAbsoluteEncoderPort = 33;
       public static final int kBackLeftTurnAbsoluteEncoderPort = 35;

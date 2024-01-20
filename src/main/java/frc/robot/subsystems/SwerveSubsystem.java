@@ -20,28 +20,32 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontLeftTurningMotorPort,
             DriveConstants.kFrontLeftDriveMotorReversed,
             DriveConstants.kFrontLeftTurningMotorReversed,
-            DriveConstants.kFrontLeftTurnAbsoluteEncoderPort);
+            DriveConstants.kFrontLeftTurnAbsoluteEncoderPort,
+            DriveConstants.kFrontLeftDriveEncoderReversed);
 
     public final SwerveModule frontRight = new SwerveModule(
             DriveConstants.kFrontRightDriveMotorPort,
             DriveConstants.kFrontRightTurningMotorPort,
             DriveConstants.kFrontRightDriveMotorReversed,
             DriveConstants.kFrontRightTurningMotorReversed,
-            DriveConstants.kFrontRightTurnAbsoluteEncoderPort);
+            DriveConstants.kFrontRightTurnAbsoluteEncoderPort,
+            DriveConstants.kFrontLeftDriveEncoderReversed);
 
     public final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort,
             DriveConstants.kBackLeftTurningMotorPort,
             DriveConstants.kBackLeftDriveMotorReversed,
             DriveConstants.kBackLeftTurningMotorReversed,
-            DriveConstants.kBackLeftTurnAbsoluteEncoderPort);
+            DriveConstants.kBackLeftTurnAbsoluteEncoderPort,
+            DriveConstants.kBackLeftDriveEncoderReversed);
 
     public final SwerveModule backRight = new SwerveModule(
             DriveConstants.kBackRightDriveMotorPort,
             DriveConstants.kBackRightTurningMotorPort,
             DriveConstants.kBackRightDriveMotorReversed,
             DriveConstants.kBackRightTurningMotorReversed,
-            DriveConstants.kBackRightTurnAbsoluteEncoderPort);
+            DriveConstants.kBackRightTurnAbsoluteEncoderPort,
+            DriveConstants.kBackRightDriveEncoderReversed);
 
     public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
@@ -80,7 +84,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public void setModuleStates(SwerveModuleState[] desiredStates)
   {
     //frontLeft.setDesiredState(desiredStates[0]);
-    ///frontRight.setDesiredState(desiredStates[1]);
+    frontRight.setDesiredState(desiredStates[1]);
     backLeft.setDesiredState(desiredStates[2]);
     backRight.setDesiredState(desiredStates[3]);
   }

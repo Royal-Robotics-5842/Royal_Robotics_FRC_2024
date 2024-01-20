@@ -37,7 +37,8 @@ public class SwerveModule {
                         int turnMotorCANID,
                         boolean driveMotorRevered,
                         boolean turnMotorReversed,
-                        int absoluteEncoderCANID)
+                        int absoluteEncoderCANID,
+                        boolean driveEncoderReversed)
     {
         CANabsoluterEncoder = new CANcoder(absoluteEncoderCANID);
         
@@ -59,20 +60,13 @@ public class SwerveModule {
 
         //Getting the value of the built in encoders of the motors
         driveBuiltInEncoder = driveMotor.getEncoder();
+        driveBuiltInEncoder.setInverted(driveEncoderReversed);
 
         //Setting the conversion factors for the encoders
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
 
         //PRINT THE NAITVE BUILT IN ENCODER VALUE AND SEE WHAT HAPPENS
-
-
-
-
-
-
-
-
 
 
 
@@ -132,7 +126,7 @@ public class SwerveModule {
         // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
         // .getdegrees and .getangle
     }
-
+    
     public void stop()
     {
         driveMotor.set(0);
