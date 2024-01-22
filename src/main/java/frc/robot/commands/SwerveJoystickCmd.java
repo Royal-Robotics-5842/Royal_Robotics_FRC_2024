@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -83,16 +84,26 @@ public class SwerveJoystickCmd extends Command {
         // 6. Output each module states to wheels
         swerveSubsystem.setModuleStates(moduleStates);
 
+        SmartDashboard.putNumber("FR Drive Encoder", swerveSubsystem.frontRight.getDrivePosition());
+        SmartDashboard.putNumber("FL Drive Encoder", swerveSubsystem.frontLeft.getDrivePosition());
+        SmartDashboard.putNumber("BR Drive Encoder", swerveSubsystem.backRight.getDrivePosition());
+        SmartDashboard.putNumber("BL Drive Encoder", swerveSubsystem.backLeft.getDrivePosition());
 
-        System.out.println("hi" + swerveSubsystem.frontLeft.getDrivePosition());
-        //System.out.println("hi" + swerveSubsystem.frontRight.getDrivePosition());
-        //System.out.println(swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
-        //System.out.println(swerveSubsystem.backLeft.getDrivePosition());
-        //System.out.println(swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
-        //System.out.println(swerveSubsystem.backRight.getAbsoluteEncoderPositon());
-        //System.out.println(swerveSubsystem.backRight.getDrivePosition());
+        SmartDashboard.putNumber("FR Turning Encoder", swerveSubsystem.frontRight.getAbsoluteEncoderPositon());
+        SmartDashboard.putNumber("FL Turning Encoder", swerveSubsystem.frontLeft.getAbsoluteEncoderPositon());
+        SmartDashboard.putNumber("BR Turning Encoder", swerveSubsystem.backRight.getAbsoluteEncoderPositon());
+        SmartDashboard.putNumber("BL Turning Encoder", swerveSubsystem.backLeft.getAbsoluteEncoderPositon());
 
+        SmartDashboard.putBoolean("FR Drive Rev", swerveSubsystem.frontRight.getDriveMotorRev());
+        SmartDashboard.putBoolean("FL Drive Rev", swerveSubsystem.frontLeft.getDriveMotorRev());
+        SmartDashboard.putBoolean("BR Drive Rev", swerveSubsystem.backRight.getDriveMotorRev());
+        SmartDashboard.putBoolean("BL Drive Rev", swerveSubsystem.backLeft.getDriveMotorRev());
         
+        SmartDashboard.putBoolean("FR Turn Rev", swerveSubsystem.frontRight.getTurnMotorRev());
+        SmartDashboard.putBoolean("FL Turn Rev", swerveSubsystem.frontLeft.getTurnMotorRev());
+        SmartDashboard.putBoolean("BR Turn Rev", swerveSubsystem.backRight.getTurnMotorRev());
+        SmartDashboard.putBoolean("BL Turn Rev", swerveSubsystem.backLeft.getTurnMotorRev());
+
         
     }
 
