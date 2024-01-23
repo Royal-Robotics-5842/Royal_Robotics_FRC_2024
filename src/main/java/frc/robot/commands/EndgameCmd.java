@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class EndgameCmd extends Command {
 
     private final EndgameSubsystem m_endgameSubsystem;
-    private final double m_speed;
+    public double m_speed;
 
-    public EndgameCmd(EndgameSubsystem endgameSubsystem) {
+    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed) {
       m_endgameSubsystem = endgameSubsystem;
       //temp value change later duh -Joe Smoe
-      m_speed = 0;
+      m_speed = speed;
       addRequirements(endgameSubsystem);
     }
 

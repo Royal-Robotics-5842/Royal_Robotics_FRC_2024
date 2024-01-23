@@ -34,7 +34,4 @@ public class EndgameSubsystem extends SubsystemBase
         rightMotor.set(rightSpeed);
     }
 
-    public double getSetTrigAng() {
-        
-    }
 }
