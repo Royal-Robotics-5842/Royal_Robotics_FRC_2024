@@ -41,10 +41,10 @@ public final class Constants {
         // Distance between front and back wheels
 
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-                new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-                new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
-                new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
+                new Translation2d(kWheelBase / 2, -kTrackWidth / 2), //FR
+                new Translation2d(kWheelBase / 2, kTrackWidth / 2), //FL
+                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), //BR
+                new Translation2d(-kWheelBase / 2, kTrackWidth / 2)); //BL
 
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 3.5;
@@ -61,15 +61,16 @@ public final class Constants {
       public static final int kFrontRightTurningMotorPort = 14;
       public static final int kBackRightTurningMotorPort = 12;
 
-      public static final boolean kFrontLeftTurningMotorReversed = false;
-      public static final boolean kBackLeftTurningMotorReversed = false;
-      public static final boolean kFrontRightTurningMotorReversed = false; 
-      public static final boolean kBackRightTurningMotorReversed = false;
+      public static final boolean kFrontLeftTurningMotorReversed = true;
+      public static final boolean kBackLeftTurningMotorReversed = true;
+      public static final boolean kFrontRightTurningMotorReversed = true; 
+      public static final boolean kBackRightTurningMotorReversed = true;
 
-      public static final boolean kFrontLeftDriveMotorReversed = true;
+      public static final boolean kFrontLeftDriveMotorReversed = false;
       public static final boolean kBackLeftDriveMotorReversed = false;
-      public static final boolean kFrontRightDriveMotorReversed = false;
+      public static final boolean kFrontRightDriveMotorReversed = true;
       public static final boolean kBackRightDriveMotorReversed = false;
+
 
       public static final int kFrontLeftTurnAbsoluteEncoderPort = 33;
       public static final int kBackLeftTurnAbsoluteEncoderPort = 35;

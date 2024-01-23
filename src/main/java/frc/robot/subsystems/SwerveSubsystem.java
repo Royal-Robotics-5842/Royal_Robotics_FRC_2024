@@ -6,10 +6,13 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -46,6 +49,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
+    private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
+    new Rotation2d(0),  new SwerveModulePosition[] {
+      frontRight.getPosition(),
+      frontLeft.getPosition(),
+      backRight.getPosition(),
+      backLeft.getPosition()
+    });
+
+    private final Field2d m_field = new Field2d();
+
   public SwerveSubsystem() 
   {
     new Thread(()->{
@@ -63,11 +76,26 @@ public class SwerveSubsystem extends SubsystemBase {
   
   public double getHeading()
   {
-    return Math.IEEEremainder(gyro.getAngle(), 360);
+    return Math.IEEEremainder(-gyro.getAngle(),360);
   }
 
   public Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(getHeading());
+  }
+
+  public Pose2d getPose()
+  {
+    return odometer.getPoseMeters();
+  }
+
+  public void resetOdemetry(Pose2d pose)
+  {
+    odometer.resetPosition(getRotation2d(), new SwerveModulePosition[] {
+      frontLeft.getPosition(),
+      frontRight.getPosition(),
+      backLeft.getPosition(),
+      backRight.getPosition()
+     } ,pose);
   }
 
   public void stopModules()
@@ -80,15 +108,28 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void setModuleStates(SwerveModuleState[] desiredStates)
   {
-    frontLeft.setDesiredState(desiredStates[0]);
-    frontRight.setDesiredState(desiredStates[1]);
-    backLeft.setDesiredState(desiredStates[2]);
-    backRight.setDesiredState(desiredStates[3]);
+    frontRight.setDesiredState(desiredStates[0]);
+    frontLeft.setDesiredState(desiredStates[1]);
+    backRight.setDesiredState(desiredStates[2]);
+    backLeft.setDesiredState(desiredStates[3]);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Robot Heading", getHeading());
+          m_field.setRobotPose(odometer.getPoseMeters());
+    odometer.update(getRotation2d(), new SwerveModulePosition[] {
+      frontRight.getPosition(),
+      frontLeft.getPosition(),
+      backRight.getPosition(),
+      backLeft.getPosition()});
+
+
+
+      // Do this in either robot periodic or subsystem periodic
+
+
+      SmartDashboard.putData("Field", m_field);
   }
 }
