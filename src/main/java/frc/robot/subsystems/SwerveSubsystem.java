@@ -57,7 +57,7 @@ public class SwerveSubsystem extends SubsystemBase {
       backLeft.getPosition()
     });
 
-    private final Field2d m_field = new Field2d();
+    public final Field2d m_field = new Field2d();
 
   public SwerveSubsystem() 
   {
@@ -67,6 +67,11 @@ public class SwerveSubsystem extends SubsystemBase {
         zeroHeading();
       } catch (Exception e){
       }}).start();
+
+      frontLeft.setDrivePosition(0);
+      frontRight.setDrivePosition(0);
+      backLeft.setDrivePosition(0);
+      backRight.setDrivePosition(0);
   }
 
   public void zeroHeading()
@@ -87,14 +92,15 @@ public class SwerveSubsystem extends SubsystemBase {
   {
     return odometer.getPoseMeters();
   }
-
+ 
+  
   public void resetOdemetry(Pose2d pose)
   {
     odometer.resetPosition(getRotation2d(), new SwerveModulePosition[] {
-      frontLeft.getPosition(),
       frontRight.getPosition(),
-      backLeft.getPosition(),
-      backRight.getPosition()
+      frontLeft.getPosition(),
+      backRight.getPosition(),
+      backLeft.getPosition()
      } ,pose);
   }
 
@@ -118,18 +124,20 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Robot Heading", getHeading());
-          m_field.setRobotPose(odometer.getPoseMeters());
+    SmartDashboard.putString("FR Get Position", frontRight.getPosition().toString());
+          
     odometer.update(getRotation2d(), new SwerveModulePosition[] {
-      frontRight.getPosition(),
       frontLeft.getPosition(),
-      backRight.getPosition(),
-      backLeft.getPosition()});
-
-
-
-      // Do this in either robot periodic or subsystem periodic
-
+      frontRight.getPosition(),
+      backLeft.getPosition(),
+      backRight.getPosition()});
 
       SmartDashboard.putData("Field", m_field);
+      SmartDashboard.putString("Robot Pose", getPose().getTranslation().toString());
+
+      // Do this in either robot periodic or subsystem periodic
+      m_field.setRobotPose(odometer.getPoseMeters());
+
+      
   }
 }

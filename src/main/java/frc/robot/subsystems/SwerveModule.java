@@ -67,15 +67,8 @@ public class SwerveModule {
         driveBuiltInEncoder = driveMotor.getEncoder();
 
         //Setting the conversion factors for the encoders
-        driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
-        driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
-
-        //PRINT THE NAITVE BUILT IN ENCODER VALUE AND SEE WHAT HAPPENS
-
-
-
-
-
+        //driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
+        //driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
 
         //Making the pid stuff for turning the wheels per joytick output
         turningPidController = new PIDController(Constants.ModuleConstants.kTurnP,0, 0);
@@ -121,6 +114,16 @@ public class SwerveModule {
     public void resetEncoders() //Reseting Encoders
     {
         driveBuiltInEncoder.setPosition(0);
+    }
+   
+    public void setToAngle(double angle)
+    {
+        turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), angle));
+    }
+
+    public void setDrivePosition(double pos)
+    {
+        driveBuiltInEncoder.setPosition(pos);
     }
 
     public SwerveModuleState getState()
