@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.Consumer;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import com.revrobotics.CANSparkMax;
@@ -11,6 +13,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Voltage;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
@@ -56,7 +60,7 @@ public class SwerveModule {
         turnMotorRev = turnMotorReversed;
 
         //Telling it what mode to be in while not getting user input
-        driveMotor.setIdleMode(IdleMode.kCoast);
+        driveMotor.setIdleMode(IdleMode.kBrake);
         turnMotor.setIdleMode(IdleMode.kCoast);
 
         //Current limiting the motors
@@ -95,6 +99,10 @@ public class SwerveModule {
         return turnMotorRev;
     }
 
+    public void setVoltage(double volts)
+    {
+        driveMotor.set(volts);
+    }
     //Getting the velocity of both motors
     public double getDriveVelocity()
     {

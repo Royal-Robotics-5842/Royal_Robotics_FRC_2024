@@ -11,11 +11,21 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.MutableMeasure;
+import edu.wpi.first.units.Velocity;
+import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.DriveConstants;
+
+import static edu.wpi.first.units.MutableMeasure.mutable;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Volts;
 
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new SwerveSubsystem. */
@@ -56,70 +66,71 @@ public class SwerveSubsystem extends SubsystemBase {
       backRight.getPosition(),
       backLeft.getPosition()
     });
+    
 
     public final Field2d m_field = new Field2d();
 
-  public SwerveSubsystem() 
-  {
-    new Thread(()->{
-      try{
-        Thread.sleep(1000);
-        zeroHeading();
-      } catch (Exception e){
-      }}).start();
+    public SwerveSubsystem() 
+    {
+      new Thread(()->{
+        try{
+          Thread.sleep(1000);
+          zeroHeading();
+        } catch (Exception e){
+        }}).start();
 
-      frontLeft.setDrivePosition(0);
-      frontRight.setDrivePosition(0);
-      backLeft.setDrivePosition(0);
-      backRight.setDrivePosition(0);
-  }
+        frontLeft.setDrivePosition(0);
+        frontRight.setDrivePosition(0);
+        backLeft.setDrivePosition(0);
+        backRight.setDrivePosition(0);
+    }
 
-  public void zeroHeading()
-  {
-    gyro.reset();
-  }
+    public void zeroHeading()
+    {
+      gyro.reset();
+    }
+    
+    public double getHeading()
+    {
+      return Math.IEEEremainder(-gyro.getAngle(),360);
+    }
+
+    public Rotation2d getRotation2d() {
+      return Rotation2d.fromDegrees(getHeading());
+    }
+
+    public Pose2d getPose()
+    {
+      return odometer.getPoseMeters();
+    }
   
-  public double getHeading()
-  {
-    return Math.IEEEremainder(-gyro.getAngle(),360);
-  }
+    
+    public void resetOdemetry(Pose2d pose)
+    {
+      odometer.resetPosition(getRotation2d(), new SwerveModulePosition[] {
+        frontRight.getPosition(),
+        frontLeft.getPosition(),
+        backRight.getPosition(),
+        backLeft.getPosition()
+      } ,pose);
+    }
 
-  public Rotation2d getRotation2d() {
-    return Rotation2d.fromDegrees(getHeading());
-  }
+    public void stopModules()
+    {
+      frontLeft.stop();
+      frontRight.stop();
+      backLeft.stop();
+      backRight.stop();
+    }
 
-  public Pose2d getPose()
-  {
-    return odometer.getPoseMeters();
-  }
- 
-  
-  public void resetOdemetry(Pose2d pose)
-  {
-    odometer.resetPosition(getRotation2d(), new SwerveModulePosition[] {
-      frontRight.getPosition(),
-      frontLeft.getPosition(),
-      backRight.getPosition(),
-      backLeft.getPosition()
-     } ,pose);
-  }
-
-  public void stopModules()
-  {
-    frontLeft.stop();
-    frontRight.stop();
-    backLeft.stop();
-    backRight.stop();
-  }
-
-  public void setModuleStates(SwerveModuleState[] desiredStates)
-  {
-    frontRight.setDesiredState(desiredStates[0]);
-    frontLeft.setDesiredState(desiredStates[1]);
-    backRight.setDesiredState(desiredStates[2]);
-    backLeft.setDesiredState(desiredStates[3]);
-  }
-
+    public void setModuleStates(SwerveModuleState[] desiredStates)
+    {
+      frontRight.setDesiredState(desiredStates[0]);
+      frontLeft.setDesiredState(desiredStates[1]);
+      backRight.setDesiredState(desiredStates[2]);
+      backLeft.setDesiredState(desiredStates[3]);
+    }
+          
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
