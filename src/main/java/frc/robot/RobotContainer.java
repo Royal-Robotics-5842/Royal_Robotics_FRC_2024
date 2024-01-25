@@ -101,11 +101,11 @@ public class RobotContainer {
                 List.of(
                         new Translation2d(1,0),
                         new Translation2d(1.5,0)),
-                new Pose2d(2,0, Rotation2d.fromDegrees(0)),
+                new Pose2d(2,0, Rotation2d.fromDegrees(180)),
                 trajectoryConfig);
         
         
-        Trajectory trajectory1 = TrajectoryGenerator.generateTrajectory(
+        Trajectory trajectory2 = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
                         new Translation2d(1,0),
@@ -115,9 +115,9 @@ public class RobotContainer {
         
 
 
-        var concattraj = trajectory1.concatenate(trajectory3Trajectory);
+        var concattraj = trajectory1.concatenate(trajectory2);
 
-                swerveSubsystem.m_field.getObject("traj").setTrajectory(trajectory3Trajectory);
+                swerveSubsystem.m_field.getObject("traj").setTrajectory(trajectory2);
 
 
     // 3. Define PID controllers for tracking trajectory
@@ -139,7 +139,6 @@ public class RobotContainer {
                 swerveSubsystem);
 
         SwerveControllerCommand swerveControllerCommand2 = new SwerveControllerCommand(
-                //trajectory2,
                 concattraj,
                 swerveSubsystem::getPose,
                 DriveConstants.kDriveKinematics,
@@ -151,9 +150,9 @@ public class RobotContainer {
 
         // 5. Add some init and wrap-up, and return everything
         return new SequentialCommandGroup(
-                //new InstantCommand(() -> swerveSubsystem.resetOdemetry(trajectory1.getInitialPose())),
-                //swerveControllerCommand,
-                swerveControllerCommand2,
+                new InstantCommand(() -> swerveSubsystem.resetOdemetry(trajectory1.getInitialPose())),
+                swerveControllerCommand,
+                //swerveControllerCommand2,
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
   }
 }
