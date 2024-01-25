@@ -89,13 +89,13 @@ public final class Constants {
 
   public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = 2;//DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
-        public static final double kMaxAngularSpeedRadiansPerSecond = 2.5;
+        public static final double kMaxAngularSpeedRadiansPerSecond = 2;
                        //DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 8;
-        public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
-        public static final double kPXController = 8;
-        public static final double kPYController = 8;
-        public static final double kPThetaController = 8;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 2;
+        public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 2;//Math.PI / 4;
+        public static final double kPXController = 6.25;
+        public static final double kPYController = 6.25;
+        public static final double kPThetaController = 5;
 
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(

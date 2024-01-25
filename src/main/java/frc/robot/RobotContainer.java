@@ -4,15 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.commands.setTo0;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
-
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -24,12 +15,20 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.setTo0;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -94,22 +93,31 @@ public class RobotContainer {
                 AutoConstants.kMaxSpeedMetersPerSecond,
                 AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                         .setKinematics(DriveConstants.kDriveKinematics);
-
+        
 
      // 2. Generate trajectory
-        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+        Trajectory trajectory1 = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
-                        new Translation2d(1, 0),
-                        new Translation2d(2, 0),
-                        new Translation2d(3, 0),
-                        new Translation2d(4, 0),
-                        new Translation2d(4.8, 0.25),
-                        new Translation2d(4.8, 1)),
-                new Pose2d(4.8,1.5, Rotation2d.fromDegrees(180)),
+                        new Translation2d(1,0),
+                        new Translation2d(1.5,0)),
+                new Pose2d(2,0, Rotation2d.fromDegrees(0)),
                 trajectoryConfig);
+        
+        
+        Trajectory trajectory1 = TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0, 0, new Rotation2d(0)),
+                List.of(
+                        new Translation2d(1,0),
+                        new Translation2d(1.5,0)),
+                new Pose2d(2,0, Rotation2d.fromDegrees(0)),
+                trajectoryConfig);
+        
 
-                swerveSubsystem.m_field.getObject("traj").setTrajectory(trajectory);
+
+        var concattraj = trajectory1.concatenate(trajectory3Trajectory);
+
+                swerveSubsystem.m_field.getObject("traj").setTrajectory(trajectory3Trajectory);
 
 
     // 3. Define PID controllers for tracking trajectory
@@ -121,7 +129,18 @@ public class RobotContainer {
 
         // 4. Construct command to follow trajectory
         SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-                trajectory,
+                trajectory1,
+                swerveSubsystem::getPose,
+                DriveConstants.kDriveKinematics,
+                xController,
+                yController,
+                thetaController,
+                swerveSubsystem::setModuleStates,
+                swerveSubsystem);
+
+        SwerveControllerCommand swerveControllerCommand2 = new SwerveControllerCommand(
+                //trajectory2,
+                concattraj,
                 swerveSubsystem::getPose,
                 DriveConstants.kDriveKinematics,
                 xController,
@@ -132,8 +151,9 @@ public class RobotContainer {
 
         // 5. Add some init and wrap-up, and return everything
         return new SequentialCommandGroup(
-                new InstantCommand(() -> swerveSubsystem.resetOdemetry(trajectory.getInitialPose())),
-                swerveControllerCommand,
+                //new InstantCommand(() -> swerveSubsystem.resetOdemetry(trajectory1.getInitialPose())),
+                //swerveControllerCommand,
+                swerveControllerCommand2,
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
   }
 }
