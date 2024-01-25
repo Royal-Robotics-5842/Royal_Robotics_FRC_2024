@@ -19,12 +19,13 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public void execute() {
-        shootSubsystem.setPosition();
+        shootSubsystem.setPosition(0.5);
     }
 
     @Override
     public void end(boolean interupted) {
         System.out.println("ShootActiveCmd ended!");
+        shootSubsystem.setPosition(0);
     }
 
     @Override

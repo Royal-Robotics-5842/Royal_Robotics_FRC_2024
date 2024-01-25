@@ -58,6 +58,7 @@ public class RobotContainer {
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.a().whileTrue(shootActiveCmd);
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
