@@ -6,6 +6,11 @@ package frc.robot;
 
 import java.util.List;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -47,6 +52,13 @@ public class RobotContainer {
   
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
 
+
+
+        //AUTO STUFFF
+         
+
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -87,7 +99,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Piece One - Middle");
 
+        // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return AutoBuilder.followPath(path);
+/*
     // 1. Create trajectory settings
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
@@ -154,5 +170,7 @@ public class RobotContainer {
                 swerveControllerCommand,
                 //swerveControllerCommand2,
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
+
+                */
   }
 }

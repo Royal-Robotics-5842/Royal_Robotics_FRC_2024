@@ -5,21 +5,29 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Distance;
 import edu.wpi.first.units.MutableMeasure;
 import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Voltage;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
 import static edu.wpi.first.units.MutableMeasure.mutable;
@@ -83,7 +91,34 @@ public class SwerveSubsystem extends SubsystemBase {
         frontRight.setDrivePosition(0);
         backLeft.setDrivePosition(0);
         backRight.setDrivePosition(0);
+
+        AutoBuilder.configureHolonomic(
+                this::getPose, // Robot pose supplier
+                this::resetOdemetry, // Method to reset odometry (will be called if your auto has a starting pose)
+                this::getSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                this::driveFieldRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                        new PIDConstants(AutoConstants.kPXController, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(AutoConstants.kPThetaController, 0.0, 0.0), // Rotation PID constants
+                        AutoConstants.kMaxSpeedMetersPerSecond, // Max module speed, in m/s
+                        Units.inchesToMeters(15.851360351717), // Drive base radius in meters. Distance from robot center to furthest module.
+                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                ),
+                () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                },
+                this // Reference to this subsystem to set requirements
+        );
     }
+    
 
     public void zeroHeading()
     {
@@ -130,6 +165,35 @@ public class SwerveSubsystem extends SubsystemBase {
       backRight.setDesiredState(desiredStates[2]);
       backLeft.setDesiredState(desiredStates[3]);
     }
+
+    public SwerveModuleState[] getModuleStates()
+    {
+      SwerveModuleState[] states = new SwerveModuleState[] {
+        frontRight.getState(),
+        frontLeft.getState(),
+        backRight.getState(),
+        backLeft.getState()
+      };
+
+      return states;
+    }
+
+    public ChassisSpeeds getSpeeds() 
+    {
+      return DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+    }
+
+    public void driveFieldRelative(ChassisSpeeds fieldRelativeSpeeds) {
+      driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds, getPose().getRotation()));
+    }
+
+    public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
+      ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
+  
+      SwerveModuleState[] targetStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(targetSpeeds);
+      setModuleStates(targetStates);
+    }
+
           
   @Override
   public void periodic() {
@@ -149,6 +213,6 @@ public class SwerveSubsystem extends SubsystemBase {
       // Do this in either robot periodic or subsystem periodic
       m_field.setRobotPose(odometer.getPoseMeters());
 
-      
+    
   }
 }
