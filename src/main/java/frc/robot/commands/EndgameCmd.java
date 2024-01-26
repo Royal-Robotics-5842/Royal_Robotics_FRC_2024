@@ -12,9 +12,15 @@ public class EndgameCmd extends Command {
     private double egspeed;
     private double egspeed2;
 
+    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed) {
+      m_endgameSubsystem = endgameSubsystem;
+      egspeed = speed;
+
+      addRequirements(endgameSubsystem);
+    }
+
     public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed, double speed2) {
       m_endgameSubsystem = endgameSubsystem;
-      //temp value change later duh -Joe Smoe
       egspeed = speed;
       egspeed2 = speed2;
 
