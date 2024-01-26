@@ -99,7 +99,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Piece One - Middle");
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Test");
 
         // Create a path following command using AutoBuilder. This will also trigger event markers.
         return AutoBuilder.followPath(path);
