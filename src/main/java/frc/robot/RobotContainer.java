@@ -6,6 +6,11 @@ package frc.robot;
 
 import java.util.List;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -17,6 +22,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -47,6 +53,13 @@ public class RobotContainer {
   
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
 
+
+
+        //AUTO STUFFF
+         
+
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -58,6 +71,7 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 
+      NamedCommands.registerCommand("Hi", setTo0);
     
   }
 
@@ -87,7 +101,29 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
+    swerveSubsystem.frontRight.setCoast();
+    swerveSubsystem.frontLeft.setCoast();
+    swerveSubsystem.backLeft.setCoast();
+    swerveSubsystem.backRight.setCoast();
 
+    PathPlannerPath LeftNote = PathPlannerPath.fromPathFile("LeftNote");
+    PathPlannerPath LeftNoteRev = PathPlannerPath.fromPathFile("LeftNoteReverse");
+    PathPlannerPath MidNote = PathPlannerPath.fromPathFile("MidNote");
+    PathPlannerPath MidNoteRev = PathPlannerPath.fromPathFile("MidNoteRev");
+    PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
+    PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
+
+
+    // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
+        .andThen(AutoBuilder.followPath(LeftNote))
+        .andThen(AutoBuilder.followPath(LeftNoteRev))
+        .andThen(AutoBuilder.followPath(MidNote))
+        .andThen(AutoBuilder.followPath(MidNoteRev))
+        .andThen(AutoBuilder.followPath(FifthNote))
+        .andThen(AutoBuilder.followPath(FifthNoteRev));
+
+/*      
     // 1. Create trajectory settings
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
@@ -154,5 +190,7 @@ public class RobotContainer {
                 swerveControllerCommand,
                 //swerveControllerCommand2,
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
+
+                */
   }
 }

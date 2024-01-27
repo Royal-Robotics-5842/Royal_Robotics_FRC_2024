@@ -103,6 +103,17 @@ public class SwerveModule {
     {
         driveMotor.set(volts);
     }
+
+    public void setCoast()
+    {
+        driveMotor.setIdleMode(IdleMode.kCoast);
+    }
+
+    public void setBrake()
+    {
+        driveMotor.setIdleMode(IdleMode.kBrake);
+    }
+
     //Getting the velocity of both motors
     public double getDriveVelocity()
     {
