@@ -7,8 +7,12 @@ import frc.robot.Constants;
 public class ArmB extends Command {
   /** Creates a new ArmtoSetpoint. */
   
-  private final ArmSubsystem arm = new ArmSubsystem();
+  private final ArmSubsystem arm;
 
+  public ArmB(ArmSubsystem arm){
+    this.arm = arm;
+    addRequirements(arm);
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
