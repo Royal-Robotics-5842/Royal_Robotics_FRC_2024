@@ -39,7 +39,13 @@ public class SwerveJoystickCmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() 
+  {
+    swerveSubsystem.frontRight.setBrake();
+    swerveSubsystem.frontLeft.setBrake();
+    swerveSubsystem.backRight.setBrake();
+    swerveSubsystem.backLeft.setBrake();
+  }
 
   @Override
   public boolean runsWhenDisabled()

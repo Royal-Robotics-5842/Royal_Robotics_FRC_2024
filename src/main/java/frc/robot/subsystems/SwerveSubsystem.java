@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -86,12 +87,7 @@ public class SwerveSubsystem extends SubsystemBase {
           zeroHeading();
         } catch (Exception e){
         }}).start();
-
-        frontLeft.setDrivePosition(0);
-        frontRight.setDrivePosition(0);
-        backLeft.setDrivePosition(0);
-        backRight.setDrivePosition(0);
-
+        
         AutoBuilder.configureHolonomic(
                 this::getPose, // Robot pose supplier
                 this::resetOdemetry, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -119,7 +115,6 @@ public class SwerveSubsystem extends SubsystemBase {
         );
     }
     
-
     public void zeroHeading()
     {
       gyro.reset();
@@ -188,9 +183,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
-      ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
   
-      SwerveModuleState[] targetStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(targetSpeeds);
+      SwerveModuleState[] targetStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(robotRelativeSpeeds);
       setModuleStates(targetStates);
     }
 
