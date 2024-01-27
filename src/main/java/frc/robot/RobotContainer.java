@@ -4,6 +4,13 @@
 
 package frc.robot;
 
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Autos;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootActiveCmd;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShootSubsystem;
+
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -45,6 +52,9 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final ShootSubsystem shootSubsystem = new ShootSubsystem();
+  private final ShootActiveCmd shootActiveCmd = new ShootActiveCmd(shootSubsystem);
+
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
   private final setTo0 setTo0 = new setTo0(swerveSubsystem);
@@ -57,7 +67,6 @@ public class RobotContainer {
 
         //AUTO STUFFF
          
-
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -92,7 +101,10 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.a().whileTrue(shootActiveCmd);
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
