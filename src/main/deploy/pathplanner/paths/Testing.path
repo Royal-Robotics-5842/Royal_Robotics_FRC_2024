@@ -48,15 +48,15 @@
     },
     {
       "anchor": {
-        "x": 1.7943584167120892,
+        "x": 1.3756161320151827,
         "y": 5.57998439840296
       },
       "prevControl": {
-        "x": 1.7530746309593137,
+        "x": 1.3343323462624073,
         "y": 5.57998439840296
       },
       "nextControl": {
-        "x": 1.8447592295419566,
+        "x": 1.4260169448450501,
         "y": 5.57998439840296
       },
       "isLocked": false,
@@ -80,15 +80,15 @@
     },
     {
       "anchor": {
-        "x": 1.7943584167120892,
+        "x": 1.3756161320151827,
         "y": 5.57998439840296
       },
       "prevControl": {
-        "x": 1.7342191760686436,
+        "x": 1.3154768913717372,
         "y": 5.57998439840296
       },
       "nextControl": {
-        "x": 1.9130195503664769,
+        "x": 1.4942772656695704,
         "y": 5.57998439840296
       },
       "isLocked": false,
@@ -132,96 +132,10 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 1.0
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0500000000000003,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 3.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 1.0
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 4.15,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 7.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 2.75,
+    "maxAcceleration": 2.75,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 180.0
   },

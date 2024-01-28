@@ -124,7 +124,11 @@ public class RobotContainer {
     PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
+    PathPlannerPath Test = PathPlannerPath.fromPathFile("Testing");
 
+    return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
+        .andThen(AutoBuilder.followPath(Test));
+/*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
         .andThen(AutoBuilder.followPath(LeftNote))
@@ -133,8 +137,7 @@ public class RobotContainer {
         .andThen(AutoBuilder.followPath(MidNoteRev))
         .andThen(AutoBuilder.followPath(FifthNote))
         .andThen(AutoBuilder.followPath(FifthNoteRev));
-
-/*      
+    
     // 1. Create trajectory settings
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
