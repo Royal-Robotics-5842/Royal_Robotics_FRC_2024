@@ -9,10 +9,14 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SwerveSubsystem;
 
 public class LimeLight extends Command {
   /** Creates a new LimeLight. */
-  public LimeLight() {
+  SwerveSubsystem swerve = new SwerveSubsystem();
+  public LimeLight(SwerveSubsystem swerve) {
+    this.swerve = swerve;
+    addRequirements(swerve);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
