@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase{
 
     public double angle = 0.0;
 
-    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(360, 360);
+    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(30, 30);
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State(); //Making Goal
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State(); //Making Setpoint
 
