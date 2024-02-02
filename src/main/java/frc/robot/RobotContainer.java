@@ -55,7 +55,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     m_driverController.a().onTrue(armA);
-    m_driverController.b().onTrue(armB);
+    //m_driverController.b().onTrue(armB);
     m_driverController.x().onTrue(armX);
     m_driverController.y().onTrue(armY);
   }
