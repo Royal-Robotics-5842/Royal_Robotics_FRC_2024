@@ -6,16 +6,12 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-<<<<<<< HEAD
 import frc.robot.commands.ShootActiveCmd;
-=======
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ArmPositons.ArmA;
 import frc.robot.commands.ArmPositons.ArmB;
 import frc.robot.commands.ArmPositons.ArmX;
 import frc.robot.commands.ArmPositons.ArmY;
 import frc.robot.subsystems.ArmSubsystem;
->>>>>>> 6ad91a9e2387e5291d743b2875b9bf7461b92cb7
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 
@@ -77,18 +73,12 @@ public class RobotContainer {
         //AUTO STUFFF
         private final SendableChooser<Command> autoChooser;
 
-<<<<<<< HEAD
-=======
   public static ArmSubsystem arm = new ArmSubsystem();
 
   public static ArmA armA = new ArmA(arm);
   public static ArmB armB = new ArmB(arm);
   public static ArmX armX = new ArmX(arm);
   public static ArmY armY = new ArmY(arm);
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
->>>>>>> 6ad91a9e2387e5291d743b2875b9bf7461b92cb7
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -122,22 +112,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-<<<<<<< HEAD
-    new Trigger(m_exampleSubsystem::exampleCondition);
-  
-     m_driverController.b().onTrue(setTo0.withTimeout(0.5));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.a().whileTrue(shootActiveCmd);
-=======
-    m_driverController.a().onTrue(armA);
+    m_driverController.x().onTrue(armA);
+    m_driverController.b().onTrue(setTo0.withTimeout(0.2));
+
     //m_driverController.b().onTrue(armB);
-    m_driverController.x().onTrue(armX);
-    m_driverController.y().onTrue(armY);
->>>>>>> 6ad91a9e2387e5291d743b2875b9bf7461b92cb7
+    //m_driverController.x().onTrue(armX);
+    //m_driverController.y().onTrue(armY);
   }
   
 

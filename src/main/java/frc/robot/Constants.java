@@ -21,7 +21,6 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 1;
   }
-<<<<<<< HEAD
 
   public static final class ModuleConstants
   {
@@ -115,11 +114,9 @@ public final class Constants {
 
     public static final double kDeadband = 0.05;
 }
-=======
   public static int ArmA = 1;
   public static int ArmB = 2;
   public static int ArmX = 3;
   public static int ArmY = 4;
 
->>>>>>> 6ad91a9e2387e5291d743b2875b9bf7461b92cb7
 }
