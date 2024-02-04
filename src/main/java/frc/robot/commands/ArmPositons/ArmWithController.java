@@ -10,9 +10,11 @@ public class ArmWithController extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
+  private double speed;
 
-  public ArmWithController(ArmSubsystem arm){
+  public ArmWithController(ArmSubsystem arm, double speed){
     this.arm = arm;
+    this.speed = speed;
     addRequirements(arm);
   }
 
@@ -32,7 +34,7 @@ public class ArmWithController extends Command {
   @Override
   public void execute()
   {
-    arm.setSpeed(RobotContainer.m_driverController.getLeftY());
+    arm.setSpeed(speed);
     SmartDashboard.putNumber("ARM ENCODER", arm.ArmEncoder.getPosition());
     SmartDashboard.putNumber("NCODER", RobotContainer.m_driverController.getLeftY());
   }

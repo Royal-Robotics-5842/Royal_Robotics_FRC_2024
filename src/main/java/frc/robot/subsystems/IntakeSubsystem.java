@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   
-    CANSparkMax leftMotor = new CANSparkMax(21, MotorType.kBrushless);
-    CANSparkMax  rightMotor = new CANSparkMax(15, MotorType.kBrushless);
+    public CANSparkMax leftMotor = new CANSparkMax(21, MotorType.kBrushless);
+    public CANSparkMax  rightMotor = new CANSparkMax(15, MotorType.kBrushless);
 
     /** Creates a new IntakeWithA. */
   public IntakeSubsystem() {

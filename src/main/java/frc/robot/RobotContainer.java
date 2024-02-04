@@ -52,14 +52,8 @@ public class RobotContainer {
   public final static CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
 
 
-        //AUTO STUFFF
-        private final SendableChooser<Command> autoChooser;
-
-
-  public static ArmA armA = new ArmA(arm);
-  public static ArmB armB = new ArmB(arm);
-  public static ArmX armX = new ArmX(arm);
-  public static ArmY armY = new ArmY(arm);
+  //AUTO STUFFF
+  private final SendableChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -73,12 +67,9 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 */
-      arm.setDefaultCommand(new ArmWithController(arm, m_driverController.getLeftY()));
 
 
-
-
-      NamedCommands.registerCommand("ArmShoot", armA);
+      NamedCommands.registerCommand("ArmShoot", new ArmA(arm));
       NamedCommands.registerCommand("Shoot", new ShootActiveCmd(shooter, 0.5));
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -118,7 +109,10 @@ public class RobotContainer {
         )
         );
 
-    m_driverController.b().onTrue(new setTo0(swerveSubsystem).withTimeout(0.2));
+    m_driverController.b().onTrue(new setTo0(swerveSubsystem).withTimeout(0.5));
+
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.1));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.1));
   }
   
 

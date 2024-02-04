@@ -6,9 +6,10 @@ import frc.robot.subsystems.ShootSubsystem;
 public class ShootActiveCmd extends Command  {
 
     private ShootSubsystem shootSubsystem;
-
-    public ShootActiveCmd(ShootSubsystem shootSubsystem) {
+    private double speed;
+    public ShootActiveCmd(ShootSubsystem shootSubsystem, double speed) {
         this.shootSubsystem = shootSubsystem;
+        this.speed = speed;
         addRequirements(shootSubsystem);
     }
 
@@ -19,13 +20,14 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public void execute() {
-        shootSubsystem.setPosition(0.5);
+        shootSubsystem.shootMotor1.set(speed);
+        shootSubsystem.shootMotor2.set(speed);
+
     }
 
     @Override
     public void end(boolean interupted) {
         System.out.println("ShootActiveCmd ended!");
-        shootSubsystem.setPosition(0);
     }
 
     @Override

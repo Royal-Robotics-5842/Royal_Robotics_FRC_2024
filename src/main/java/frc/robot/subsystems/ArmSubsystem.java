@@ -44,17 +44,8 @@ public class ArmSubsystem extends SubsystemBase{
 
     public void setSpeed(double speed)
     {
-        if (speed < 0.25)
-        {
-            ArmLeft.set(-speed);
-            ArmRight.set(-speed);
-        }
-
-        else 
-        {
-            ArmLeft.set(speed);
-            ArmRight.set(speed);
-        }
+        ArmLeft.set(speed);
+        ArmRight.set(speed);
     }
 
     public void moveArm(int input){
