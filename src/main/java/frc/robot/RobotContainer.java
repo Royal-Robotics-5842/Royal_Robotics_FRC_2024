@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ShootActiveCmd;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.intakeNote;
 import frc.robot.commands.setTo0;
 import frc.robot.commands.ArmPositons.ArmA;
 import frc.robot.commands.ArmPositons.ArmB;
@@ -26,6 +28,7 @@ import frc.robot.commands.ArmPositons.ArmX;
 import frc.robot.commands.ArmPositons.ArmY;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -37,18 +40,12 @@ import frc.robot.subsystems.SwerveSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ShootSubsystem shootSubsystem = new ShootSubsystem();
-  private final ShootActiveCmd shootActiveCmd = new ShootActiveCmd(shootSubsystem);
-
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-
-  private final setTo0 setTo0 = new setTo0(swerveSubsystem);
-
-  private final ArmWithController ArmWithController = new ArmWithController(arm); 
+  private final IntakeSubsystem intake = new IntakeSubsystem();
+  public static ArmSubsystem arm = new ArmSubsystem();
+  private final ShootSubsystem shooter = new ShootSubsystem();
 
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
-  
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   public final static CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
 
@@ -56,7 +53,6 @@ public class RobotContainer {
         //AUTO STUFFF
         private final SendableChooser<Command> autoChooser;
 
-  public static ArmSubsystem arm = new ArmSubsystem();
 
   public static ArmA armA = new ArmA(arm);
   public static ArmB armB = new ArmB(arm);
@@ -75,10 +71,13 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 */
-      arm.setDefaultCommand(ArmWithController);
+      arm.setDefaultCommand(new ArmWithController(arm, m_driverController.getLeftY()));
+
+
+
 
       NamedCommands.registerCommand("ArmShoot", armA);
-      NamedCommands.registerCommand("Shoot", shootActiveCmd);
+      NamedCommands.registerCommand("Shoot", new ShootActiveCmd(shooter, 0.5));
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -102,13 +101,20 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.a().whileTrue(shootActiveCmd);
-    m_driverController.x().onTrue(armA);
-    m_driverController.b().onTrue(setTo0.withTimeout(0.2));
+    m_driverController.a().whileTrue(
+        Commands.sequence(
+                new intakeNote(intake, 0.05).withTimeout(1),
+                new ShootActiveCmd(shooter, 0.5)
+        )
+        );
 
-    //m_driverController.b().onTrue(armB);
-    //m_driverController.x().onTrue(armX);
-    //m_driverController.y().onTrue(armY);
+    m_driverController.x().whileTrue(
+        Commands.sequence(
+        new intakeNote(intake, 0.1)
+        )
+        );
+
+    m_driverController.b().onTrue(new setTo0(swerveSubsystem).withTimeout(0.2));
   }
   
 
