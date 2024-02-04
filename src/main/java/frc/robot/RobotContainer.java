@@ -4,48 +4,29 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ShootActiveCmd;
-import frc.robot.commands.ArmPositons.ArmA;
-import frc.robot.commands.ArmPositons.ArmB;
-import frc.robot.commands.ArmPositons.ArmX;
-import frc.robot.commands.ArmPositons.ArmY;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ShootSubsystem;
-
-import java.util.List;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ShootActiveCmd;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.setTo0;
+import frc.robot.commands.ArmPositons.ArmA;
+import frc.robot.commands.ArmPositons.ArmB;
+import frc.robot.commands.ArmPositons.ArmWithController;
+import frc.robot.commands.ArmPositons.ArmX;
+import frc.robot.commands.ArmPositons.ArmY;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /**
@@ -64,10 +45,12 @@ public class RobotContainer {
 
   private final setTo0 setTo0 = new setTo0(swerveSubsystem);
 
+  private final ArmWithController ArmWithController = new ArmWithController(arm); 
+
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
-
+  public final static CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
 
 
         //AUTO STUFFF
@@ -84,14 +67,18 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    /*
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
       swerveSubsystem,
       () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
       () -> -driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
+*/
+      arm.setDefaultCommand(ArmWithController);
 
-      NamedCommands.registerCommand("Hi", setTo0);
+      NamedCommands.registerCommand("ArmShoot", armA);
+      NamedCommands.registerCommand("Shoot", shootActiveCmd);
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -146,8 +133,8 @@ public class RobotContainer {
 
     PathPlannerPath Test = PathPlannerPath.fromPathFile("Testing");
 
-    return autoChooser.getSelected();
-    
+    //return autoChooser.getSelected();
+    return new PathPlannerAuto("test1");
     //return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
         //.andThen(AutoBuilder.followPath(Test));
 /*

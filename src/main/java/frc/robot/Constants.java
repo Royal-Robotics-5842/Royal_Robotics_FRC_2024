@@ -18,9 +18,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 1;
-  }
+
 
   public static final class ModuleConstants
   {
@@ -85,6 +83,9 @@ public final class Constants {
       public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2.5;
       public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
 
+
+      public static final int kLeftArmCANID = 41;
+      public static final int kRightArmCANID = 42;
   }
 
   public static final class AutoConstants {
@@ -106,6 +107,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 1;
+    public static final int kOperatorControllerPort = 2;
 
     public static final int kDriverYAxis = 1;
     public static final int kDriverXAxis = 0;

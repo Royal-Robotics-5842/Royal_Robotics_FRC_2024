@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase{
-    CANSparkMax ArmLeft = new CANSparkMax(31, MotorType.kBrushless);
-    CANSparkMax ArmRight = new CANSparkMax(32, MotorType.kBrushless);
+    CANSparkMax ArmLeft = new CANSparkMax(41, MotorType.kBrushless);
+    CANSparkMax ArmRight = new CANSparkMax(42, MotorType.kBrushless);
 
     public RelativeEncoder ArmEncoder = ArmLeft.getEncoder();
 
-    SparkPIDController ArmController = ArmLeft.getPIDController();
+    SparkPIDController ArmController = ArmLeft.getPIDController();  
 
     public double angle = 0.0;
 
@@ -28,16 +28,11 @@ public class ArmSubsystem extends SubsystemBase{
 
 
     public ArmSubsystem(){
-        ArmLeft.restoreFactoryDefaults();
-        ArmRight.restoreFactoryDefaults();
+        ArmLeft.setInverted(true);
+        ArmRight.setInverted(false);
 
-        ArmLeft.setInverted(false);
-        ArmRight.setInverted(true);
-
-        ArmRight.follow(ArmLeft);
-
-        ArmLeft.setSmartCurrentLimit(40);
-        ArmRight.setSmartCurrentLimit(40);
+        ArmLeft.setSmartCurrentLimit(80);
+        ArmRight.setSmartCurrentLimit(80);
 
         ArmController.setP(0.05);
         ArmController.setI(0);
@@ -45,6 +40,21 @@ public class ArmSubsystem extends SubsystemBase{
 
         ArmRight.setIdleMode(IdleMode.kBrake);
         ArmLeft.setIdleMode(IdleMode.kBrake);
+    }
+
+    public void setSpeed(double speed)
+    {
+        if (speed < 0.25)
+        {
+            ArmLeft.set(-speed);
+            ArmRight.set(-speed);
+        }
+
+        else 
+        {
+            ArmLeft.set(speed);
+            ArmRight.set(speed);
+        }
     }
 
     public void moveArm(int input){
