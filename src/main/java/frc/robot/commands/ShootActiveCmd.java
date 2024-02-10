@@ -28,6 +28,8 @@ public class ShootActiveCmd extends Command  {
     @Override
     public void end(boolean interupted) {
         System.out.println("ShootActiveCmd ended!");
+        shootSubsystem.shootMotor1.set(0);
+        shootSubsystem.shootMotor2.set(0);
     }
 
     @Override
