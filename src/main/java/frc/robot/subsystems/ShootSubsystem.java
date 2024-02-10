@@ -10,15 +10,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShootSubsystem extends SubsystemBase {
 
-    public CANSparkMax shootMotor1 = new CANSparkMax(21, MotorType.kBrushless); 
-    public CANSparkMax shootMotor2 = new CANSparkMax(1, MotorType.kBrushless);
+    public CANSparkMax rightShooter = new CANSparkMax(3, MotorType.kBrushless); 
+    public CANSparkMax leftShooter = new CANSparkMax(4, MotorType.kBrushless);
+    public CANSparkMax lefShooter = new CANSparkMax(4, MotorType.kBrushless);
+    
     
     public ShootSubsystem() {
-        shootMotor1.restoreFactoryDefaults();
-        shootMotor2.restoreFactoryDefaults();
+        rightShooter.restoreFactoryDefaults();
+        leftShooter.restoreFactoryDefaults();
         
-        shootMotor1.setInverted(true);
-        shootMotor2.setInverted(false);
+        rightShooter.setInverted(true);
+        leftShooter.setInverted(false);
     }
      
 }
