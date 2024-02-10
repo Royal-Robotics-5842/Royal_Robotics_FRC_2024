@@ -116,9 +116,9 @@ public final class Constants {
 
     public static final double kDeadband = 0.05;
 }
-  public static int ArmA = 1;
-  public static int ArmB = 2;
-  public static int ArmX = 3;
-  public static int ArmY = 4;
+  public static double ArmA = 0.0;
+  public static double ArmB = 0.0;
+  public static double ArmX = 0.0;
+  public static double ArmY = 15.0;
 
 }

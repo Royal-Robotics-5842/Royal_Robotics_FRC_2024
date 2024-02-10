@@ -35,7 +35,7 @@ public class ArmWithController extends Command {
   public void execute()
   {
     arm.setSpeed(speed);
-    SmartDashboard.putNumber("ARM ENCODER", arm.ArmEncoder.getPosition());
+    SmartDashboard.putNumber("ARM ENCODER", arm.ArmLeftEncoder.getPosition());
     SmartDashboard.putNumber("NCODER", RobotContainer.m_driverController.getLeftY());
   }
 
@@ -47,6 +47,6 @@ public class ArmWithController extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    return (Math.abs(RobotContainer.m_operatorController.getLeftY()) <= 0.1);
+    return RobotContainer.m_driverController.leftBumper().getAsBoolean() == false && RobotContainer.m_driverController.rightBumper().getAsBoolean() == false;
   }
 }

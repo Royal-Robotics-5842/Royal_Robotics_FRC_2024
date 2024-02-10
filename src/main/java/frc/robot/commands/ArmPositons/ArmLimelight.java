@@ -1,18 +1,21 @@
 package frc.robot.commands.ArmPositons;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.Limelight;
 import frc.robot.Constants;
 
-public class ArmA extends Command {
+public class ArmLimelight extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
+  private final Limelight limelight = new Limelight(30, 16.5, 57.5);
 
-  public ArmA(ArmSubsystem arm){
+  public ArmLimelight(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
-  }
+}
 
   // Called when the command is initially scheduled.
   @Override
@@ -24,7 +27,14 @@ public class ArmA extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmA);
+  
+    if(limelight.getLimelightX() == 0)
+    {
+      arm.moveArm(arm.ArmLeftEncoder.getPosition());
+    }
+    else
+      arm.moveArm(limelight.getAngleFromAprilTag());
+   
   }
 
   // Called once the command ends or is interrupted.
@@ -35,10 +45,6 @@ public class ArmA extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmEncoder.getPosition()) - Math.abs(arm.angle)) <= 0.5)
-    {
-      return true;
-    }
     return false;
   }
 }

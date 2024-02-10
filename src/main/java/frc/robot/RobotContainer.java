@@ -21,16 +21,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ShootActiveCmd;
 import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.commands.intakeNote;
+//import frc.robot.commands.intakeNote;
 import frc.robot.commands.setTo0;
-import frc.robot.commands.ArmPositons.ArmA;
+import frc.robot.commands.ArmPositons.ArmLimelight;
 import frc.robot.commands.ArmPositons.ArmB;
 import frc.robot.commands.ArmPositons.ArmWithController;
 import frc.robot.commands.ArmPositons.ArmX;
 import frc.robot.commands.ArmPositons.ArmY;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+//import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -43,7 +43,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  private final IntakeSubsystem intake = new IntakeSubsystem();
+  //private final IntakeSubsystem intake = new IntakeSubsystem();
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ShootSubsystem shooter = new ShootSubsystem();
 
@@ -69,7 +69,7 @@ public class RobotContainer {
 */
 
 
-      NamedCommands.registerCommand("ArmShoot", new ArmA(arm));
+      NamedCommands.registerCommand("ArmShoot", new ArmLimelight(arm));
       NamedCommands.registerCommand("Shoot", new ShootActiveCmd(shooter, 0.5));
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -93,6 +93,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    /*
     m_driverController.a().whileTrue(
         Commands.sequence(
                 new ShootActiveCmd(shooter, 0.5),
@@ -101,18 +102,23 @@ public class RobotContainer {
                 new WaitCommand(2),
                 new ShootActiveCmd(shooter, 0)
         )
-        );
+        ); 
+*/
+    m_driverController.y().onTrue(new ArmY(arm));
+    m_driverController.a().onTrue(new ArmB(arm));
 
-    m_driverController.x().whileTrue(
+    m_driverController.x().whileTrue(new ArmLimelight(arm));
+      /*
         Commands.sequence(
         new intakeNote(intake, 0.1)
         )
         );
-
+        */
+        
     m_driverController.b().onTrue(new setTo0(swerveSubsystem).withTimeout(0.5));
 
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.1));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.1));
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.5));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.5));
   }
   
 

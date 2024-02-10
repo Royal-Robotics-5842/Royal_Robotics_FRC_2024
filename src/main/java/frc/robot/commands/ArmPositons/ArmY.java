@@ -35,8 +35,9 @@ public class ArmY extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmEncoder.getPosition()) - Math.abs(arm.angle)) <= 0.5)
+    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(arm.angle)) <= 1)
     {
+      System.out.println("WOOOOOOOO");
       return true;
     }
     return false;
