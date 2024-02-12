@@ -6,13 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class setTo0 extends Command {
   /** Creates a new setTo0. */
   private final SwerveSubsystem swerve;
-  public setTo0(SwerveSubsystem swerve) {
+  private final ArmSubsystem arm;
+  public setTo0(SwerveSubsystem swerve, ArmSubsystem arm) {
     this.swerve = swerve;
+    this.arm = arm;
     addRequirements(swerve);
   }
 
@@ -37,6 +40,8 @@ public class setTo0 extends Command {
     swerve.backRight.setDrivePosition(0);
 
     swerve.resetOdemetry(new Pose2d(0, 0, swerve.gyro.getRotation2d()));
+
+    arm.ArmLeftEncoder.setPosition(0);
   }
 
   // Called once the command ends or is interrupted.

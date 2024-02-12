@@ -21,15 +21,17 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ShootActiveCmd;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.intakeNote;
 //import frc.robot.commands.intakeNote;
 import frc.robot.commands.setTo0;
 import frc.robot.commands.ArmPositons.ArmLimelight;
-import frc.robot.commands.ArmPositons.ArmB;
+import frc.robot.commands.ArmPositons.ArmIntake;
 import frc.robot.commands.ArmPositons.ArmWithController;
 import frc.robot.commands.ArmPositons.ArmX;
 import frc.robot.commands.ArmPositons.ArmY;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 //import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -43,7 +45,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  //private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final IntakeSubsystem intake = new IntakeSubsystem();
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ShootSubsystem shooter = new ShootSubsystem();
 
@@ -66,6 +68,8 @@ public class RobotContainer {
       () -> -driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
+
+
 
 
 
@@ -104,10 +108,10 @@ public class RobotContainer {
         )
         ); 
 */
-    m_driverController.y().onTrue(new ArmY(arm));
-    m_driverController.a().onTrue(new ArmB(arm));
+    m_driverController.y().whileTrue(new ShootActiveCmd(shooter, 0.85));
+    m_driverController.a().onTrue(new ArmIntake(arm));
 
-    m_driverController.x().whileTrue(new ArmLimelight(arm));
+    //m_driverController.x().whileTrue(new intakeNote(new IntakeSubsystem(), 0.75));
       /*
         Commands.sequence(
         new intakeNote(intake, 0.1)
@@ -115,11 +119,15 @@ public class RobotContainer {
         );
         */
         
-    m_driverController.b().onTrue(new setTo0(swerveSubsystem).withTimeout(0.5));
+    m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.5));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.5));
-  }
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.25));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.25));
+
+    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -0.75));
+    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 0.75));
+
+    }
   
 
   /**

@@ -20,16 +20,16 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public void execute() {
-        shootSubsystem.shootMotor1.set(speed);
-        shootSubsystem.shootMotor2.set(speed);
+        shootSubsystem.rightShooter.set(speed);
+        shootSubsystem.leftShooter.set(speed);
 
     }
 
     @Override
     public void end(boolean interupted) {
         System.out.println("ShootActiveCmd ended!");
-        shootSubsystem.shootMotor1.set(0);
-        shootSubsystem.shootMotor2.set(0);
+        shootSubsystem.rightShooter.set(0);
+        shootSubsystem.leftShooter.set(0);
     }
 
     @Override

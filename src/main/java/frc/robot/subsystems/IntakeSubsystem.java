@@ -13,29 +13,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   
-    public CANSparkMax leftMotor = new CANSparkMax(21, MotorType.kBrushless);
-    public CANSparkMax  rightMotor = new CANSparkMax(15, MotorType.kBrushless);
-
+    public CANSparkMax Motor = new CANSparkMax(5, MotorType.kBrushless);
+    
     /** Creates a new IntakeWithA. */
   public IntakeSubsystem() {
 
-    leftMotor.restoreFactoryDefaults();
-    rightMotor.restoreFactoryDefaults();
+    Motor.restoreFactoryDefaults();
+    
+    Motor.setInverted(false);
+    Motor.setSmartCurrentLimit(80);
+    
+    
 
-    leftMotor.setInverted(true);
-    rightMotor.setInverted(false);
-
-    leftMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor.setIdleMode(IdleMode.kBrake);
+    Motor.setIdleMode(IdleMode.kBrake);
+    
 
   }
 
-public void setMotors(double leftSpeed, double rightSpeed) {
-  leftMotor.set(leftSpeed);
-  rightMotor.set(rightSpeed);
+public void setMotors(double speed) {
+  Motor.set(speed);
+  
 }
 
 
   @Override
-  public void periodic() {}
+  public void periodic() 
+  {}
 }

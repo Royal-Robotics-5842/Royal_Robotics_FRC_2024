@@ -46,8 +46,8 @@ public final class Constants {
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2)); //BL
 
 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 3.5;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 5* 2 * Math.PI;
      
 
       public static final int kFrontLeftDriveMotorPort = 23;
@@ -68,7 +68,7 @@ public final class Constants {
       public static final boolean kFrontLeftDriveMotorReversed = false;
       public static final boolean kBackLeftDriveMotorReversed = false;
       public static final boolean kFrontRightDriveMotorReversed = false;
-      public static final boolean kBackRightDriveMotorReversed = false;
+      public static final boolean kBackRightDriveMotorReversed = true;
 
 
       public static final int kFrontLeftTurnAbsoluteEncoderPort = 33;
@@ -76,8 +76,8 @@ public final class Constants {
       public static final int kFrontRightTurnAbsoluteEncoderPort = 34;
       public static final int kBackRightTurnAbsoluteEncoderPort = 32;
 
-      public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3.5;
-      public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3.5;
+      public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 5;
+      public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 5* 2 * Math.PI;
 
       
       public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2.5;
@@ -117,7 +117,7 @@ public final class Constants {
     public static final double kDeadband = 0.05;
 }
   public static double ArmA = 0.0;
-  public static double ArmB = 0.0;
+  public static double ArmIntake = 1.7;
   public static double ArmX = 0.0;
   public static double ArmY = 15.0;
 

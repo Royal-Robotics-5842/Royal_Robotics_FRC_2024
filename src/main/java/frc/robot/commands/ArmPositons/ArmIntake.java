@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants;
 
-public class ArmB extends Command {
+public class ArmIntake extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
 
-  public ArmB(ArmSubsystem arm){
+  public ArmIntake(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
   }
@@ -23,7 +23,7 @@ public class ArmB extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmB);
+    arm.moveArm(-30);
   }
 
   // Called once the command ends or is interrupted.
