@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants;
 
-public class ArmX extends Command {
+public class ArmShotSpeaker extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
 
-  public ArmX(ArmSubsystem arm){
+  public ArmShotSpeaker(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
   }
@@ -23,21 +23,26 @@ public class ArmX extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmX);
+    arm.moveArm(Constants.ArmShotSpeaker);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted){}
+  public void end(boolean interrupted)
+  {
+    arm.setSpeed(0);
+    
+  }
 
 
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(arm.angle)) <= 0.5)
-    {
+    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmShotSpeaker)) <= 0.5)
+    {      
       return true;
     }
+    System.out.print("HII" + (Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(30)));
     return false;
   }
 }

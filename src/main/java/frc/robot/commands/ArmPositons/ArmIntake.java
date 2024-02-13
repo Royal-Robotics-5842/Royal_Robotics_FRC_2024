@@ -23,21 +23,27 @@ public class ArmIntake extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(-30);
+    arm.moveArm(Constants.ArmIntake);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted){}
+  public void end(boolean interrupted)
+  {
+    arm.setSpeed(0);
+    
+  }
 
 
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(arm.angle)) <= 0.5)
+    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 0.5)
     {
+      
       return true;
     }
+    System.out.print("HII" + (Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(30)));
     return false;
   }
 }

@@ -20,8 +20,8 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public void execute() {
-        shootSubsystem.rightShooter.set(speed);
-        shootSubsystem.leftShooter.set(speed);
+        shootSubsystem.setRPM(speed);
+        System.out.println("SHOOTER SPEEEEDDD" + shootSubsystem.shooterEncoder.getVelocity());
 
     }
 
@@ -34,7 +34,7 @@ public class ShootActiveCmd extends Command  {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return (Math.abs(shootSubsystem.shooterEncoder.getVelocity()) - Math.abs(speed) <= 1);
     }
 
     

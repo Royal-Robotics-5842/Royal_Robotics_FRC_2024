@@ -27,11 +27,10 @@ public class ArmSubsystem extends SubsystemBase{
 
     public double angle = 0.0;
 
-
         private final TrapezoidProfile.Constraints m_constraints =
-      new TrapezoidProfile.Constraints(1, 1);
+      new TrapezoidProfile.Constraints(180, 180);
         private final ProfiledPIDController m_controller =
-      new ProfiledPIDController(0.3, 0,0, m_constraints, 0.02);
+      new ProfiledPIDController(0.023, 0,0.003, m_constraints, 0.02);
 
 
     public ArmSubsystem(){
@@ -67,7 +66,9 @@ public class ArmSubsystem extends SubsystemBase{
 
         ArmLeftController.setReference(armSpeed,ControlType.kPosition);
 */
+        
         ArmLeft.set(m_controller.calculate(ArmLeftEncoder.getPosition(), angle));
+        System.out.println(m_controller.calculate(ArmLeftEncoder.getPosition(), angle));
     }
 
     public void getEncoder()

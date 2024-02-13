@@ -26,10 +26,9 @@ import frc.robot.commands.intakeNoteOuttake;
 //import frc.robot.commands.intakeNote;
 import frc.robot.commands.setTo0;
 import frc.robot.commands.ArmPositons.ArmLimelight;
+import frc.robot.commands.ArmPositons.ArmShotSpeaker;
 import frc.robot.commands.ArmPositons.ArmIntake;
 import frc.robot.commands.ArmPositons.ArmWithController;
-import frc.robot.commands.ArmPositons.ArmX;
-import frc.robot.commands.ArmPositons.ArmY;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -109,10 +108,13 @@ public class RobotContainer {
         )
         ); 
 */
-    m_driverController.y().whileTrue(new ShootActiveCmd(shooter, 0.85));//Commands.sequence(new intakeNoteOuttake(intake).withTimeout(0.25).andThen(wait(1000))// new ShootActiveCmd(shooter, 0.85))));
+    m_driverController.y().onTrue(Commands.sequence(new intakeNoteOuttake(intake).withTimeout(0.1),
+                                        Commands.parallel(new ShootActiveCmd(shooter, 1000), new ArmShotSpeaker(arm)),
+                                        new intakeNote(intake).withTimeout(1)));
+        //new ShootActiveCmd(shooter, 0.85));//Commands.sequence(new intakeNoteOuttake(intake).withTimeout(0.25).andThen(wait(1000))// new ShootActiveCmd(shooter, 0.85))));
     m_driverController.a().onTrue(new ArmIntake(arm));
 
-    //m_driverController.x().whileTrue(new intakeNote(new IntakeSubsystem(), 0.75));
+    m_driverController.x().onTrue(new ShootActiveCmd(shooter, 1000));
       /*
         Commands.sequence(
         new intakeNote(intake, 0.1)
@@ -122,8 +124,8 @@ public class RobotContainer {
         
     m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.25));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.25));
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, -.85));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.85));
 
     
 
