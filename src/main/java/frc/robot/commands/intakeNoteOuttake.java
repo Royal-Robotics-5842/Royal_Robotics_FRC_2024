@@ -10,11 +10,11 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 
-public class intakeNote extends Command {
+public class intakeNoteOuttake extends Command {
   /** Creates a new intakeNote. */
   private final IntakeSubsystem intakeSubsystem;
 
-  public intakeNote(IntakeSubsystem intakeSubsystem) {
+  public intakeNoteOuttake(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeSubsystem = intakeSubsystem;
 
@@ -28,15 +28,8 @@ public class intakeNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.m_driverController.leftTrigger().getAsBoolean())
-    {
-      intakeSubsystem.Motor.set(-0.75);
-    }
-    else if (RobotContainer.m_driverController.rightTrigger().getAsBoolean())
-    {
-      intakeSubsystem.Motor.set(0.75);
-    }
-
+   
+      intakeSubsystem.Motor.set(-1);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +42,6 @@ public class intakeNote extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.m_driverController.leftTrigger().getAsBoolean() == false && RobotContainer.m_driverController.rightTrigger().getAsBoolean() == false ;
+    return false;
   }
 }

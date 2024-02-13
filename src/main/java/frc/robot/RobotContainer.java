@@ -22,6 +22,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ShootActiveCmd;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.intakeNote;
+import frc.robot.commands.intakeNoteOuttake;
 //import frc.robot.commands.intakeNote;
 import frc.robot.commands.setTo0;
 import frc.robot.commands.ArmPositons.ArmLimelight;
@@ -69,7 +70,7 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 
-
+       intake.setDefaultCommand(new intakeNote(intake));
 
 
 
@@ -108,7 +109,7 @@ public class RobotContainer {
         )
         ); 
 */
-    m_driverController.y().whileTrue(new ShootActiveCmd(shooter, 0.85));
+    m_driverController.y().whileTrue(new ShootActiveCmd(shooter, 0.85));//Commands.sequence(new intakeNoteOuttake(intake).withTimeout(0.25).andThen(wait(1000))// new ShootActiveCmd(shooter, 0.85))));
     m_driverController.a().onTrue(new ArmIntake(arm));
 
     //m_driverController.x().whileTrue(new intakeNote(new IntakeSubsystem(), 0.75));
@@ -124,8 +125,7 @@ public class RobotContainer {
     m_driverController.leftBumper().onTrue(new ArmWithController(arm, -0.25));
     m_driverController.rightBumper().onTrue(new ArmWithController(arm, 0.25));
 
-    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -0.75));
-    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 0.75));
+    
 
     }
   
