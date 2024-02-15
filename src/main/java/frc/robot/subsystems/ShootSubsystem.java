@@ -20,28 +20,27 @@ public class ShootSubsystem extends SubsystemBase {
 
     public RelativeEncoder shooterEncoder = rightShooter.getEncoder();
     
-    public SparkPIDController pid = rightShooter.getPIDController();
+    private SparkPIDController pid = rightShooter.getPIDController();
     
     public ShootSubsystem() {
         rightShooter.restoreFactoryDefaults();
         leftShooter.restoreFactoryDefaults();
 
-        rightShooter.setSmartCurrentLimit(10);
-        leftShooter.setSmartCurrentLimit(10);
+        rightShooter.setSmartCurrentLimit(40);
+        leftShooter.setSmartCurrentLimit(40);
 
         pid.setFF(0.00019);
-        pid.setP(0);
 
         pid.setOutputRange(-1, 1);
+
+        leftShooter.follow(rightShooter);
 
     }
 
     public void setRPM(double rpm)
     {
-        double setpoint = rpm;
-        System.out.println("HII" + pid.setReference(1000, ControlType.kVelocity));
-        
-        pid.setReference(1000, ControlType.kVelocity);
+        double setpoint = rpm;        
+        pid.setReference(setpoint, ControlType.kVelocity);
     }
      
 }

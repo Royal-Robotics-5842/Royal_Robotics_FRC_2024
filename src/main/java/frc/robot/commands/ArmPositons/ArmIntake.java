@@ -17,7 +17,7 @@ public class ArmIntake extends Command {
   @Override
   public void initialize() 
   {
-
+    System.out.println("Arm intake Start");
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -38,12 +38,11 @@ public class ArmIntake extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 0.5)
+    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 1)
     {
-      
+      System.out.println("Arm intake DONE");
       return true;
     }
-    System.out.print("HII" + (Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(30)));
     return false;
   }
 }

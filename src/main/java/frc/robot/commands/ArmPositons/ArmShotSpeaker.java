@@ -17,7 +17,7 @@ public class ArmShotSpeaker extends Command {
   @Override
   public void initialize() 
   {
-
+    System.out.println("Arm speaker Start");
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,10 +39,10 @@ public class ArmShotSpeaker extends Command {
   @Override
   public boolean isFinished() {
     if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmShotSpeaker)) <= 0.5)
-    {      
+    {  
+      System.out.println("ArmSHOT DONE");    
       return true;
     }
-    System.out.print("HII" + (Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(30)));
     return false;
   }
 }

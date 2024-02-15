@@ -94,5 +94,15 @@ public class Limelight {
         return test;
     }
 
+    public double angle()
+    {
+        double d1 = 42.7;
+        double d2 = (getDistanceFromLimelightToGoalInches());// + speakerHoleDistance);
+        //double h1 = speakerHoleHeight;
+        double theta2 = (180/Math.PI) * (Math.atan((Math.tan(42* (Math.PI/180))*d1)/(d2)));
+        //System.out.println(getDistanceFromLimelightToGoalInches());
+        return theta2;
+    }
+
 }
 

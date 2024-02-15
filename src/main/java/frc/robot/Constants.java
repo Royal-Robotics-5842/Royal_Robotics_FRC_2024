@@ -34,9 +34,9 @@ public final class Constants {
 
   public static final class DriveConstants
   {
-    public static final double kTrackWidth = Units.inchesToMeters(21);
+    public static final double kTrackWidth = Units.inchesToMeters(28);
         // Distance between right and left wheels
-    public static final double kWheelBase = Units.inchesToMeters(23.75);
+    public static final double kWheelBase = Units.inchesToMeters(28);
         // Distance between front and back wheels
 
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
@@ -46,8 +46,8 @@ public final class Constants {
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2)); //BL
 
 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 5* 2 * Math.PI;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 1.25;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 3 * Math.PI;
      
 
       public static final int kFrontLeftDriveMotorPort = 23;
@@ -81,7 +81,7 @@ public final class Constants {
 
       
       public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2.5;
-      public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+      public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond ;
 
 
       public static final int kLeftArmCANID = 41;
@@ -116,9 +116,8 @@ public final class Constants {
 
     public static final double kDeadband = 0.05;
 }
-  public static double ArmA = 0.0;
   public static double ArmIntake = 0;
-  public static double ArmShotSpeaker = -90;
-  public static double ArmY = 0;
+  public static double ArmShotSpeaker = 42;
+  public static double ArmAmp = 63.1;
 
 }

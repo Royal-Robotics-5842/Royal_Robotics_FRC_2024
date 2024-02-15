@@ -60,8 +60,8 @@ public class SwerveModule {
         turnMotorRev = turnMotorReversed;
 
         //Telling it what mode to be in while not getting user input
-        driveMotor.setIdleMode(IdleMode.kBrake);
-        turnMotor.setIdleMode(IdleMode.kCoast);
+        driveMotor.setIdleMode(IdleMode.kCoast);
+        turnMotor.setIdleMode(IdleMode.kBrake);
 
         //Current limiting the motors
         driveMotor.setSmartCurrentLimit(50); 
@@ -99,7 +99,7 @@ public class SwerveModule {
         return turnMotorRev;
     }
 
-    public void setVoltage(double volts)
+    public void setSpeed(double volts)
     {
         driveMotor.set(volts);
     }

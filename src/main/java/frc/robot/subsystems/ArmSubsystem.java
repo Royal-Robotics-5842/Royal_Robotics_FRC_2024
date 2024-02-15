@@ -30,26 +30,23 @@ public class ArmSubsystem extends SubsystemBase{
         private final TrapezoidProfile.Constraints m_constraints =
       new TrapezoidProfile.Constraints(180, 180);
         private final ProfiledPIDController m_controller =
-      new ProfiledPIDController(0.023, 0,0.003, m_constraints, 0.02);
+      new ProfiledPIDController(0.0375, 0,0, m_constraints, 0.02);
 
 
     public ArmSubsystem(){
-        ArmLeft.setInverted(false);
-        ArmRight.setInverted(true);
+        ArmLeft.setInverted(true);
+        ArmRight.setInverted(false);
 
         ArmLeft.setSmartCurrentLimit(80);
         ArmRight.setSmartCurrentLimit(80);
 
-        ArmLeftController.setP(0.9);
-        ArmLeftController.setI(0);
-        ArmLeftController.setD(0.02);
-
         ArmRight.setIdleMode(IdleMode.kBrake);
         ArmLeft.setIdleMode(IdleMode.kBrake);
 
-        ArmLeftEncoder.setPositionConversionFactor(426.666/360);
+        ArmLeftEncoder.setPositionConversionFactor(420/360);
         
         ArmRight.follow(ArmLeft, true);
+    
     }
 
     public void setSpeed(double speed)
@@ -68,8 +65,7 @@ public class ArmSubsystem extends SubsystemBase{
 */
         
         ArmLeft.set(m_controller.calculate(ArmLeftEncoder.getPosition(), angle));
-        System.out.println(m_controller.calculate(ArmLeftEncoder.getPosition(), angle));
-    }
+        }
 
     public void getEncoder()
     {

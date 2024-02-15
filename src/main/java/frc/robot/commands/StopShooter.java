@@ -3,35 +3,33 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShootSubsystem;
 
-public class ShootActiveCmd extends Command  {
+public class StopShooter extends Command  {
 
     private ShootSubsystem shootSubsystem;
     private double speed;
-    public ShootActiveCmd(ShootSubsystem shootSubsystem, double speed) {
+    public StopShooter(ShootSubsystem shootSubsystem) {
         this.shootSubsystem = shootSubsystem;
-        this.speed = speed;
         addRequirements(shootSubsystem);
     }
 
     @Override
     public void initialize() {
-        System.out.println("ShootActiveCmd started!");
     }
 
     @Override
     public void execute() {
-        shootSubsystem.setRPM(speed);
+        shootSubsystem.leftShooter.set(0);
+        shootSubsystem.rightShooter.set(0);
     }
 
     @Override
     public void end(boolean interupted) {
-        System.out.println("ShootActiveCmd ended!");
-        shootSubsystem.setRPM(speed);        
+          
     }
 
     @Override
     public boolean isFinished() {
-        return (Math.abs(shootSubsystem.shooterEncoder.getVelocity()) - Math.abs(speed) >= 1);
+        return false;//(Math.abs(shootSubsystem.shooterEncoder.getVelocity()) - Math.abs(speed) >= 1);
     }
 
     
