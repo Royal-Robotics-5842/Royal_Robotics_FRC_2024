@@ -13,7 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class ShootSubsystem extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
 
     public CANSparkMax rightShooter = new CANSparkMax(3, MotorType.kBrushless); 
     public CANSparkMax leftShooter = new CANSparkMax(35, MotorType.kBrushless);
@@ -22,7 +22,7 @@ public class ShootSubsystem extends SubsystemBase {
     
     private SparkPIDController pid = rightShooter.getPIDController();
     
-    public ShootSubsystem() {
+    public ShooterSubsystem() {
         rightShooter.restoreFactoryDefaults();
         leftShooter.restoreFactoryDefaults();
 

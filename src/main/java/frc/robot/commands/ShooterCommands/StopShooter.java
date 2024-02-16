@@ -1,13 +1,13 @@
-package frc.robot.commands;
+package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShootSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class StopShooter extends Command  {
 
-    private ShootSubsystem shootSubsystem;
+    private ShooterSubsystem shootSubsystem;
     private double speed;
-    public StopShooter(ShootSubsystem shootSubsystem) {
+    public StopShooter(ShooterSubsystem shootSubsystem) {
         this.shootSubsystem = shootSubsystem;
         addRequirements(shootSubsystem);
     }

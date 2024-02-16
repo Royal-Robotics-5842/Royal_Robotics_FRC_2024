@@ -1,15 +1,15 @@
-package frc.robot.commands.ArmPositons;
+package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants;
 
-public class ArmAmp extends Command {
+public class ArmShotSpeaker extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
 
-  public ArmAmp(ArmSubsystem arm){
+  public ArmShotSpeaker(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
   }
@@ -17,13 +17,13 @@ public class ArmAmp extends Command {
   @Override
   public void initialize() 
   {
-    System.out.println("Arm amp Start");
+    System.out.println("Arm speaker Start");
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmAmp);
+    arm.moveArm(Constants.ArmShotSpeaker);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,13 +38,11 @@ public class ArmAmp extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmAmp)) <= 0.5)
-    {
-      System.out.print("Arm Amp DONE");
+    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmShotSpeaker)) <= 0.5)
+    {  
+      System.out.println("ArmSHOT DONE");    
       return true;
-
     }
-    //System.out.print("MENI" + (Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmAmp)));
     return false;
   }
 }

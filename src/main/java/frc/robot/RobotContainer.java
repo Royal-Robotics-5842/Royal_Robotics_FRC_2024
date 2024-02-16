@@ -17,21 +17,20 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.ShootActiveCmd;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.commands.intakeNote;
-//import frc.robot.commands.intakeNote;
-import frc.robot.commands.setTo0;
-import frc.robot.commands.ArmPositons.ArmAmp;
-import frc.robot.commands.ArmPositons.ArmIntake;
-import frc.robot.commands.ArmPositons.ArmLimelight;
-import frc.robot.commands.ArmPositons.ArmShotSpeaker;
-import frc.robot.commands.ArmPositons.ArmWithController;
+import frc.robot.commands.ArmCommands.ArmAmp;
+import frc.robot.commands.ArmCommands.ArmIntake;
+import frc.robot.commands.ArmCommands.ArmLimelight;
+import frc.robot.commands.ArmCommands.ArmShotSpeaker;
+import frc.robot.commands.ArmCommands.ArmWithController;
+import frc.robot.commands.IntakeCommands.intakeNote;
+import frc.robot.commands.ShooterCommands.ShootActiveCmd;
+import frc.robot.commands.ShooterCommands.StopShooter;
+import frc.robot.commands.SwerveCommands.SwerveJoystickCmd;
+import frc.robot.commands.SwerveCommands.setTo0;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 //import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShootSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /**
@@ -45,7 +44,7 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
   public static ArmSubsystem arm = new ArmSubsystem();
-  private final ShootSubsystem shooter = new ShootSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -158,12 +157,11 @@ public class RobotContainer {
     PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
-    PathPlannerPath Test = PathPlannerPath.fromPathFile("testing");
-        
+           
     //return autoChooser.getSelected();
     //return new PathPlannerAuto("test1");
-    return Commands.runOnce(()->swerveSubsystem.resetOdemetry(Test.getPreviewStartingHolonomicPose()))
-        .andThen(AutoBuilder.followPath(Test));
+    return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
+        .andThen(AutoBuilder.followPath(MidNote));
 /*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
