@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
@@ -70,8 +71,16 @@ public class RobotContainer {
 
 
 
-      NamedCommands.registerCommand("ArmShoot", new ArmLimelight(arm));
-      NamedCommands.registerCommand("Shoot", new ShootActiveCmd(shooter, 0.5));
+      NamedCommands.registerCommand("ArmShoot", new intakeNote(intake, -1).withTimeout(0.2)
+                                        .andThen(new ShootActiveCmd(shooter, 3500))
+                                        .alongWith(new ArmShotSpeaker(arm)));
+
+      NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.2).andThen(
+                                new ArmIntake(arm)));
+
+                                
+      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.85));
+
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -94,36 +103,21 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    /*
-    m_driverController.a().whileTrue(
-        Commands.sequence(
-                new ShootActiveCmd(shooter, 0.5),
-                new WaitCommand(2),
-                new intakeNote(intake, -1),
-                new WaitCommand(2),
-                new ShootActiveCmd(shooter, 0)
-        )
-        ); 
-*/
-    m_driverController.y().onTrue(new intakeNote(intake, -1).withTimeout(0.2)
-                                        .andThen(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm)));
 
-        //new ShootActiveCmd(shooter, 0.85));//Commands.sequence(new intakeNoteOuttake(intake).withTimeout(0.25).andThen(wait(1000))// new ShootActiveCmd(shooter, 0.85))));
-    m_driverController.a()//whileTrue(new ArmLimelight(arm));
+//DRIVER CONTROLLER COMMANDS
+    m_driverController.y()
+    .onTrue(new intakeNote(intake, -1).withTimeout(0.2)
+                                .andThen(new ShootActiveCmd(shooter, 3500))
+                                .alongWith(new ArmShotSpeaker(arm)));
+
+    m_driverController.a()
     .onTrue(new StopShooter(shooter).withTimeout(0.2).andThen(
                                 new ArmIntake(arm)));
 
     m_driverController.x()//.whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
     .onTrue(new StopShooter(shooter).withTimeout(0.2).andThen(
-                           new ArmAmp(arm)));
-      /*
-        Commands.sequence(
-        new intakeNote(intake, 0.1)
-        )
-        );
-        */
-        
+                                new ArmAmp(arm)));
+
     m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
     m_driverController.leftBumper().onTrue(new ArmWithController(arm, .25));
@@ -131,10 +125,18 @@ public class RobotContainer {
 
     m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 0.85)).whileFalse(new intakeNote(intake, 0));
     m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -0.85)).whileFalse(new intakeNote(intake, 0));
+//
 
-    
+//OPERATOR CONTROLLER COMMANDS
+    m_operatorController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    }
+    m_operatorController.x().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
+
+    m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
+    m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
+
+
+}
   
 
   /**
@@ -156,12 +158,12 @@ public class RobotContainer {
     PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
-    PathPlannerPath Test = PathPlannerPath.fromPathFile("Testing");
-
+    PathPlannerPath Test = PathPlannerPath.fromPathFile("testing");
+        
     //return autoChooser.getSelected();
-    return new PathPlannerAuto("test1");
-    //return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
-        //.andThen(AutoBuilder.followPath(Test));
+    //return new PathPlannerAuto("test1");
+    return Commands.runOnce(()->swerveSubsystem.resetOdemetry(Test.getPreviewStartingHolonomicPose()))
+        .andThen(AutoBuilder.followPath(Test));
 /*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))

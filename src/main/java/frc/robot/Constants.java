@@ -94,9 +94,9 @@ public final class Constants {
                        //DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
         public static final double kMaxAccelerationMetersPerSecondSquared = 2;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 1;//Math.PI / 4;
-        public static final double kPXController = 5;
-        public static final double kPYController = 5;
-        public static final double kPThetaController = 4.5;
+        public static final double kPXController = 2;
+        //public static final double kPYController = .5;
+        public static final double kPThetaController = 2;
 
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(
@@ -112,8 +112,7 @@ public final class Constants {
     public static final int kDriverYAxis = 1;
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
-    public static final int kDriverFieldOrientedButtonIdx = 1;
-
+    
     public static final double kDeadband = 0.05;
 }
   public static double ArmIntake = 0;

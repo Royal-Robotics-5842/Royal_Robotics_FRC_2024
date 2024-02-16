@@ -97,7 +97,7 @@ public class SwerveSubsystem extends SubsystemBase {
                         new PIDConstants(AutoConstants.kPXController, 0.0, 0.0), // Translation PID constants
                         new PIDConstants(AutoConstants.kPThetaController, 0.0, 0.0), // Rotation PID constants
                         AutoConstants.kMaxSpeedMetersPerSecond, // Max module speed, in m/s
-                        Units.inchesToMeters(15.851360351717), // Drive base radius in meters. Distance from robot center to furthest module.
+                        Units.inchesToMeters(19.79898987322333), // Drive base radius in meters. Distance from robot center to furthest module.
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {

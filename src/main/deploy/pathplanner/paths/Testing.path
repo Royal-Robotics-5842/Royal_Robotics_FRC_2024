@@ -3,149 +3,107 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0250411959898658,
-        "y": 5.57998439840296
+        "x": 0.9666120399856463,
+        "y": 5.570246205735591
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.14307518473976,
-        "y": 5.57998439840296
+        "x": 1.966612039985645,
+        "y": 5.570246205735591
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.0767660040706852,
-        "y": 6.9920223351715975
+        "x": 2.8752978027901492,
+        "y": 5.570246205735591
       },
       "prevControl": {
-        "x": 1.4924744440236215,
-        "y": 7.011498720506339
+        "x": 2.0171756912848955,
+        "y": 5.570246205735591
       },
       "nextControl": {
-        "x": 2.1935161172872037,
-        "y": 6.988130664731079
+        "x": 3.733419914295403,
+        "y": 5.570246205735591
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.8168686467859296,
-        "y": 6.9920223351715975
+        "x": 1.5411654073604713,
+        "y": 2.6390502128572475
       },
       "prevControl": {
-        "x": 2.6212007122205465,
-        "y": 6.9920223351715975
-      },
-      "nextControl": {
-        "x": 2.9082453845908747,
-        "y": 6.9920223351715975
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.3756161320151827,
-        "y": 5.57998439840296
-      },
-      "prevControl": {
-        "x": 1.3343323462624073,
-        "y": 5.57998439840296
-      },
-      "nextControl": {
-        "x": 1.4260169448450501,
-        "y": 5.57998439840296
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.8168686467859296,
-        "y": 5.57998439840296
-      },
-      "prevControl": {
-        "x": 2.602241336682624,
-        "y": 5.57998439840296
-      },
-      "nextControl": {
-        "x": 3.0314959568892355,
-        "y": 5.57998439840296
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.3756161320151827,
-        "y": 5.57998439840296
-      },
-      "prevControl": {
-        "x": 1.3154768913717372,
-        "y": 5.57998439840296
-      },
-      "nextControl": {
-        "x": 1.4942772656695704,
-        "y": 5.57998439840296
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 5.455918859643176,
-        "y": 6.047417646436716
-      },
-      "prevControl": {
-        "x": 4.22654636181808,
-        "y": 6.177902332160525
-      },
-      "nextControl": {
-        "x": 6.602270672813635,
-        "y": 5.9257447146482685
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.241041962510971,
-        "y": 5.7844864444177295
-      },
-      "prevControl": {
-        "x": 8.208574944067646,
-        "y": 5.7844864444177295
+        "x": 1.9702264631130995,
+        "y": 2.653657501858302
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
+      "name": "ArmIntake",
       "waypointRelativePos": 0.0,
-      "rotationDegrees": 0,
-      "rotateFast": false
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmShoot"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.75,
-    "maxAcceleration": 2.75,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": 0.0,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": null,
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }
