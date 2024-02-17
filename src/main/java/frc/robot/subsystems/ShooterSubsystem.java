@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public RelativeEncoder shooterEncoder = rightShooter.getEncoder();
     
-    private SparkPIDController pid = rightShooter.getPIDController();
+    public SparkPIDController pid = rightShooter.getPIDController();
     
     public ShooterSubsystem() {
         rightShooter.restoreFactoryDefaults();
