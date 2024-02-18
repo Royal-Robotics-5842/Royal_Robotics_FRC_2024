@@ -86,7 +86,9 @@ public class RobotContainer {
         // Another option that allows you to specify the default auto by its name
         // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
 
-        SmartDashboard.putData("Auto Chooser", autoChooser);    
+        SmartDashboard.putData("Auto Chooser", autoChooser);
+        
+        SmartDashboard.putBoolean("SHOOTER PID DONE?", new ShootActiveCmd(shooter, 3500).isFinished());
     
   }
 
@@ -110,17 +112,12 @@ public class RobotContainer {
                                 .alongWith(new ArmShotSpeaker(arm)));
 
     m_driverController.a()
-    .onTrue(new StopShooter(shooter).withTimeout(0.2).andThen(
-                                new ArmIntake(arm)));
+    .onTrue(new ArmIntake(arm));
 
     m_driverController.x()//.whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
-    .onTrue(new StopShooter(shooter).withTimeout(0.2).andThen(
-                                new ArmAmp(arm)));
+    .onTrue(new ArmAmp(arm));
 
     m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
-
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, .25));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
     m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 0.85)).whileFalse(new intakeNote(intake, 0));
     m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -0.85)).whileFalse(new intakeNote(intake, 0));
@@ -133,6 +130,8 @@ public class RobotContainer {
 
     m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
     m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
+
+    m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500)).onFalse(new ShootActiveCmd(shooter, 0));
 
 
 }
