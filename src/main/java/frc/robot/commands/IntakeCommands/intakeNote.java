@@ -31,7 +31,7 @@ public class intakeNote extends Command {
   @Override
   public void execute() {
     
-    intakeSubsystem.Motor.set(speed);
+    intakeSubsystem.setMotors(speed);
     
 
   }
@@ -40,7 +40,7 @@ public class intakeNote extends Command {
   @Override
   public void end(boolean interrupted) {
     //ommands.sequence(new intakeNote(intakeSubsystem, 0.1).withTimeout(1));
-    intakeSubsystem.Motor.set(0);
+    intakeSubsystem.setMotors(0);
   }
 
   // Returns true when the command should end.

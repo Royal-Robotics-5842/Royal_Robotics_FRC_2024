@@ -1,9 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 public class Limelight {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -96,10 +95,10 @@ public class Limelight {
 
     public double angle()
     {
-        double d1 = 42.7;
+        double d1 = Constants.ArmShotSpeaker;
         double d2 = (getDistanceFromLimelightToGoalInches());// + speakerHoleDistance);
         //double h1 = speakerHoleHeight;
-        double theta2 = (180/Math.PI) * (Math.atan((Math.tan(42* (Math.PI/180))*d1)/(d2)));
+        double theta2 = (180/Math.PI) * (Math.atan((Math.tan(Constants.ArmShotSpeaker* (Math.PI/180))*d1)/(d2)));
         //System.out.println(getDistanceFromLimelightToGoalInches());
         return theta2;
     }

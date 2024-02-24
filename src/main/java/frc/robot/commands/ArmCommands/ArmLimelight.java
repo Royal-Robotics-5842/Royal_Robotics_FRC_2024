@@ -10,7 +10,7 @@ public class ArmLimelight extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
-  private final Limelight limelight = new Limelight(26, 16.25, 50.5);
+  private final Limelight limelight = new Limelight(31, 18, 52);
 
   public ArmLimelight(ArmSubsystem arm){
     this.arm = arm;

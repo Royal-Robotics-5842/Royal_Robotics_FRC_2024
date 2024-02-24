@@ -21,11 +21,11 @@ public class IntakeSubsystem extends SubsystemBase {
     Motor.restoreFactoryDefaults();
     
     Motor.setInverted(false);
-    Motor.setSmartCurrentLimit(80);
+    Motor.setSmartCurrentLimit(0);
     
     
 
-    Motor.setIdleMode(IdleMode.kBrake);
+    Motor.setIdleMode(IdleMode.kCoast);
     
 
   }
@@ -35,8 +35,4 @@ public void setMotors(double speed) {
   
 }
 
-
-  @Override
-  public void periodic() 
-  {}
 }

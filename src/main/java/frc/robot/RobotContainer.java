@@ -106,25 +106,24 @@ public class RobotContainer {
 
 //DRIVER CONTROLLER COMMANDS
     m_driverController.y()
-    .onTrue(new intakeNote(intake, -1).withTimeout(0.2)
+    .onTrue(new intakeNote(intake, -0.5 ).withTimeout(0.2)
                                 .andThen(new ShootActiveCmd(shooter, 3500))
                                 .alongWith(new ArmShotSpeaker(arm)));
 
     m_driverController.a()
     .onTrue(new ArmIntake(arm));
 
-   // m_driverController.x()//.whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
-    //.onTrue(new ArmAmp(arm));
+    m_driverController.x().onTrue(new ArmAmp(arm));
 
-    m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
+    //m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 0.25)).whileFalse(new intakeNote(intake, 0));
-    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -0.25)).whileFalse(new intakeNote(intake, 0));
+    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0));
+    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0));
 
     m_driverController.leftBumper().onTrue(new ArmWithController(arm, .25));
     m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
-    //m_operatorController.x().onTrue(new ShootActiveCmd(shooter, 3500)).onFalse(new ShootActiveCmd(shooter, 0));
+    m_driverController.b().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
 
 
 //
@@ -137,7 +136,8 @@ public class RobotContainer {
     m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
     m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
-    m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500)).onFalse(new ShootActiveCmd(shooter, 0));
+    m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500));
+    m_operatorController.a().onTrue(new ShootActiveCmd(shooter, 0));
 
 
 }
@@ -166,7 +166,7 @@ public class RobotContainer {
     //return autoChooser.getSelected();
     //return new PathPlannerAuto("test1");
     return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
-        .andThen(AutoBuilder.followPath(LeftNote));
+        .andThen(AutoBuilder.followPath(MidNote));
 /*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))

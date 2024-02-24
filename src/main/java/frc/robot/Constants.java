@@ -116,7 +116,7 @@ public final class Constants {
     public static final double kDeadband = 0.05;
 }
   public static double ArmIntake = 0;
-  public static double ArmShotSpeaker = 42;
+  public static double ArmShotSpeaker = 50;
   public static double ArmAmp = 63.1;
 
 }
