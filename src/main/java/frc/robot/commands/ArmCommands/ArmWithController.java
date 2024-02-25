@@ -2,9 +2,8 @@ package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmWithController extends Command {
   /** Creates a new ArmtoSetpoint. */
@@ -49,8 +48,14 @@ public class ArmWithController extends Command {
 
 
   // Returns true when the command should end.`
+
   @Override
   public boolean isFinished() {
-    return RobotContainer.m_driverController.leftBumper().getAsBoolean() == false && RobotContainer.m_driverController.rightBumper().getAsBoolean() == false;
+
+  if((arm.getLimit() == false) && (speed < 0.0))
+    return true;
+
+
+    return ((RobotContainer.m_driverController.leftBumper().getAsBoolean() == false && RobotContainer.m_driverController.rightBumper().getAsBoolean() == false));
   }
 }

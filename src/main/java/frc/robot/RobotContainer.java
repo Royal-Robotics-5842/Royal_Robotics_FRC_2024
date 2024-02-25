@@ -46,7 +46,7 @@ public class RobotContainer {
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
 
-  private final DigitalInput armLimitSwitch = new DigitalInput(0);
+  //private final DigitalInput armLimitSwitch = new DigitalInput(0);
 
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -68,9 +68,10 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 
-       //intake.setDefaultCommand(new intakeNoteWithController(intake));
+             //intake.setDefaultCommand(new intakeNoteWithController(intake));
 
        System.out.println("ARM LIMIT");//+ armLimitSwitch.get());
+       
 
       NamedCommands.registerCommand("ArmShoot", new intakeNote(intake, -1).withTimeout(0.2)
                                         .andThen(new ShootActiveCmd(shooter, 3500))
@@ -106,8 +107,8 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-
-//DRIVER CONTROLLER COMMANDS
+    
+    //DRIVER CONTROLLER COMMANDS
     m_driverController.y()
     .onTrue(new intakeNote(intake, -0.5 ).withTimeout(0.2)
                                 .andThen(new ShootActiveCmd(shooter, 3500))
@@ -123,8 +124,8 @@ public class RobotContainer {
     m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0));
     m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0));
 
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, .25));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, 0.1));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.1));
 
     //m_driverController.b().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
 

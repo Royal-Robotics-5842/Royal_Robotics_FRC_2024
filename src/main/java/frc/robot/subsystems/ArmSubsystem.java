@@ -1,29 +1,27 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase{
-    CANSparkMax ArmLeft = new CANSparkMax(41, MotorType.kBrushless);
-    CANSparkMax ArmRight = new CANSparkMax(42, MotorType.kBrushless);
+    public CANSparkMax ArmLeft = new CANSparkMax(41, MotorType.kBrushless);
+    public CANSparkMax ArmRight = new CANSparkMax(42, MotorType.kBrushless);
 
     public RelativeEncoder ArmLeftEncoder = ArmLeft.getEncoder();
     
 
     SparkPIDController ArmLeftController = ArmLeft.getPIDController();
- 
+    
+    DigitalInput armLimitSwitch = new DigitalInput(0);
 
     public double angle = 0.0;
 
@@ -31,6 +29,9 @@ public class ArmSubsystem extends SubsystemBase{
       new TrapezoidProfile.Constraints(180, 180);
     private final ProfiledPIDController m_controller =
       new ProfiledPIDController(0.037, 0,0, m_constraints, 0.02);
+
+    //DigitalInput armLimitSwitch = new DigitalInput(0);
+    public double pidSpeed;
 
 
     public ArmSubsystem(){
@@ -51,20 +52,22 @@ public class ArmSubsystem extends SubsystemBase{
 
     public void setSpeed(double speed)
     {
+
         ArmLeft.set(speed);
         ArmRight.set(speed);
     }
 
-    public void moveArm(double angle){
-            /*
-        m_goal = new TrapezoidProfile.State(angle, 0);
-        m_setpoint = m_profile.calculate(.02,m_setpoint,m_goal);
-        double armSpeed = m_setpoint.position;
+    public boolean getLimit()
+    {
+        return armLimitSwitch.get();
+    }
 
-        ArmLeftController.setReference(armSpeed,ControlType.kPosition);
-*/
-        
-        ArmLeft.set(m_controller.calculate(ArmLeftEncoder.getPosition(), angle));
+    public void moveArm(double angle){
+   
+        pidSpeed = m_controller.calculate(ArmLeftEncoder.getPosition(), angle);
+         
+
+        ArmLeft.set(pidSpeed);
         }
 
     public void getEncoder()
@@ -75,5 +78,8 @@ public class ArmSubsystem extends SubsystemBase{
     @Override
     public void periodic() {
     // This method will be called once per scheduler run
-       SmartDashboard.putNumber("ARMM",ArmLeftEncoder.getPosition());    } 
+       SmartDashboard.putNumber("ARMM",ArmLeftEncoder.getPosition());
+       
+ } 
 }
+

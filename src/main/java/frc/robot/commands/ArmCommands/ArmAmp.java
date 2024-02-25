@@ -38,7 +38,7 @@ public class ArmAmp extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if (Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmAmp)) <= 0.5)
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmAmp)) <= 0.5))
     {
       System.out.print("Arm Amp DONE");
       return true;
