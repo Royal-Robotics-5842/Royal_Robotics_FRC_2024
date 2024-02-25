@@ -12,27 +12,109 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "LeftNote"
+            "name": "ArmShoot"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "LeftNoteReverse"
+            "name": "IntakeNoteforShoot"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "MidNote"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LeftNote"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "MidNoteRev"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LeftNoteReverse"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteforShoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidNote"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNote"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidNoteRev"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteforShoot"
           }
         }
       ]

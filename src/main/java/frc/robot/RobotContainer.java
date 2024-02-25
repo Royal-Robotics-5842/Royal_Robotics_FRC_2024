@@ -9,7 +9,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -73,14 +72,16 @@ public class RobotContainer {
        System.out.println("ARM LIMIT");//+ armLimitSwitch.get());
        
 
-      NamedCommands.registerCommand("ArmShoot", new intakeNote(intake, -1).withTimeout(0.2)
+      NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.2)
                                         .andThen(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm)));
+                                        .alongWith(new ArmShotSpeaker(arm))).withTimeout(1.75));
 
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.2).andThen(
                                 new ArmIntake(arm)));
 
-                                
+
+      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 0.85).withTimeout(1));
+                          
       NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.85).withTimeout(4));
 
         // Build an auto chooser. This will use Commands.none() as the default option.
