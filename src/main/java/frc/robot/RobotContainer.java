@@ -72,9 +72,10 @@ public class RobotContainer {
        System.out.println("ARM LIMIT");//+ armLimitSwitch.get());
        
 
-      NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.2)
-                                        .andThen(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm))).withTimeout(1.75));
+      NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.125)
+                                        .alongWith(new ShootActiveCmd(shooter, 3500))
+                                        .alongWith(new ArmShotSpeaker(arm)).withTimeout(1.75)
+                                        .andThen(new intakeNote(intake, 0.85).withTimeout(0.125))));
 
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.2).andThen(
                                 new ArmIntake(arm)));

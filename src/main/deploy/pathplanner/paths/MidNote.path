@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIntake"
+                "name": "IntakeNote"
               }
             }
           ]
@@ -50,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 180.0,
     "maxAngularAcceleration": 180.0
   },
