@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.hal.CANAPITypes.CANDeviceType;
@@ -34,6 +35,9 @@ public class ShooterSubsystem extends SubsystemBase {
         pid.setOutputRange(-1, 1);
 
         leftShooter.follow(rightShooter);
+
+        leftShooter.setIdleMode(IdleMode.kCoast);
+        rightShooter.setIdleMode(IdleMode.kCoast);
 
     }
 
