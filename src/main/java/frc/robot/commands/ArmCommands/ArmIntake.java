@@ -31,6 +31,7 @@ public class ArmIntake extends Command {
   public void end(boolean interrupted)
   {
     arm.setSpeed(0);
+    //arm.ArmLeftEncoder.setPosition(0);
     
   }
 
@@ -38,13 +39,13 @@ public class ArmIntake extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    
+
     if((arm.getLimit() == false) && (arm.pidSpeed < 0))
         {
             return true;
         }
 
-    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 1) )
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 0.5) )
     {
       System.out.println("Arm intake DONE");
       return true;
