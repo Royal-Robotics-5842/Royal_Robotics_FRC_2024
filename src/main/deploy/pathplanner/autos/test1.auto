@@ -10,7 +10,32 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftNoteReverse"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MidNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MidNoteRev"
+          }
+        }
+      ]
     }
   },
   "folder": null,

@@ -27,11 +27,10 @@ public class ArmSubsystem extends SubsystemBase{
 
     public double angle = 0.0;
 
-        private final TrapezoidProfile.Constraints m_constraints =
+    private final TrapezoidProfile.Constraints m_constraints =
       new TrapezoidProfile.Constraints(180, 180);
-        private final ProfiledPIDController m_controller =
-      new ProfiledPIDController(0.037, 0,0, m_constraints, 0.02
-      );
+    private final ProfiledPIDController m_controller =
+      new ProfiledPIDController(0.037, 0,0, m_constraints, 0.02);
 
 
     public ArmSubsystem(){

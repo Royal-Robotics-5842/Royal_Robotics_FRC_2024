@@ -6,13 +6,14 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
@@ -45,6 +46,8 @@ public class RobotContainer {
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
 
+  private final DigitalInput armLimitSwitch = new DigitalInput(0);
+
   public final static Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   public final static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   public final static CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
@@ -67,7 +70,7 @@ public class RobotContainer {
 
        //intake.setDefaultCommand(new intakeNoteWithController(intake));
 
-
+       System.out.println("ARM LIMIT");//+ armLimitSwitch.get());
 
       NamedCommands.registerCommand("ArmShoot", new intakeNote(intake, -1).withTimeout(0.2)
                                         .andThen(new ShootActiveCmd(shooter, 3500))
@@ -77,7 +80,7 @@ public class RobotContainer {
                                 new ArmIntake(arm)));
 
                                 
-      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.85));
+      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.85).withTimeout(4));
 
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -115,7 +118,7 @@ public class RobotContainer {
 
     m_driverController.x().onTrue(new ArmAmp(arm));
 
-    //m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
+    m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
     m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0));
     m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0));
@@ -123,7 +126,7 @@ public class RobotContainer {
     m_driverController.leftBumper().onTrue(new ArmWithController(arm, .25));
     m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
-    m_driverController.b().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
+    //m_driverController.b().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
 
 
 //
@@ -164,9 +167,14 @@ public class RobotContainer {
 
            
     //return autoChooser.getSelected();
-    //return new PathPlannerAuto("test1");
+    return new PathPlannerAuto("test1");
+    /*
     return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
-        .andThen(AutoBuilder.followPath(MidNote));
+        .andThen(AutoBuilder.followPath(LeftNote)
+        .andThen(AutoBuilder.followPath(LeftNoteRev)
+        .andThen(AutoBuilder.followPath(MidNote)
+        .andThen(AutoBuilder.followPath(MidNoteRev)))));
+        */
 /*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
