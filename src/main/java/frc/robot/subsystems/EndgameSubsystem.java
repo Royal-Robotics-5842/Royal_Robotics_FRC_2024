@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /** Add your docs here. */
 public class EndgameSubsystem extends SubsystemBase 
 {
+    public boolean endgameInvert = false;
     public final CANSparkMax leftMotor = new CANSparkMax(14, MotorType.kBrushless);
     public final CANSparkMax rightMotor = new CANSparkMax(14, MotorType.kBrushless);
 
@@ -17,6 +18,7 @@ public class EndgameSubsystem extends SubsystemBase
         rightMotor.restoreFactoryDefaults();
 
         rightMotor.setInverted(true);
+        leftMotor.setInverted(false);
     }
 
     @Override
@@ -32,6 +34,17 @@ public class EndgameSubsystem extends SubsystemBase
     public void setMotors(double leftSpeed, double rightSpeed) {
         leftMotor.set(leftSpeed);
         rightMotor.set(rightSpeed);
+    }
+
+    public void setDirection() {
+        if(endgameInvert==false) {
+            rightMotor.setInverted(true);
+            leftMotor.setInverted(false);
+        }
+        else {
+            rightMotor.setInverted(false);
+            leftMotor.setInverted(true);
+        }
     }
 
 }
