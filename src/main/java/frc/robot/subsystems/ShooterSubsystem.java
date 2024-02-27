@@ -36,8 +36,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
         leftShooter.follow(rightShooter);
 
-        leftShooter.setIdleMode(IdleMode.kCoast);
-        rightShooter.setIdleMode(IdleMode.kCoast);
+        leftShooter.setIdleMode(IdleMode.kBrake);
+        rightShooter.setIdleMode(IdleMode.kBrake);
 
     }
 

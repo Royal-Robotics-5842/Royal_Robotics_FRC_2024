@@ -74,16 +74,15 @@ public class RobotContainer {
 
       NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.125)
                                         .alongWith(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm)).withTimeout(1.75)
-                                        .andThen(new intakeNote(intake, 0.85).withTimeout(0.125))));
+                                        .alongWith(new ArmShotSpeaker(arm).withTimeout(1.75))));
 
-      NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.2).andThen(
+      NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).alongWith(
                                 new ArmIntake(arm)));
 
 
-      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 0.85).withTimeout(1));
+      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.25));
                           
-      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.85).withTimeout(4));
+      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.5).withTimeout(3));
 
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -116,8 +115,7 @@ public class RobotContainer {
                                 .andThen(new ShootActiveCmd(shooter, 3500))
                                 .alongWith(new ArmShotSpeaker(arm)));
 
-    m_driverController.a()
-    .onTrue(new ArmIntake(arm));
+    m_driverController.a().onTrue(new ArmIntake(arm).andThen(new StopShooter(shooter)));
 
     m_driverController.x().onTrue(new ArmAmp(arm));
 
@@ -170,7 +168,7 @@ public class RobotContainer {
 
            
     //return autoChooser.getSelected();
-    return new PathPlannerAuto("test1");
+    return new PathPlannerAuto("test2");
     /*
     return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
         .andThen(AutoBuilder.followPath(LeftNote)

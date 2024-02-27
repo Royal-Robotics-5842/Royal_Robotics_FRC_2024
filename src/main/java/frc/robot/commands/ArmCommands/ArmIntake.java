@@ -47,7 +47,7 @@ public class ArmIntake extends Command {
 
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 0.5) )
     {
-      System.out.println("Arm intake DONE");
+      System.out.println("Arm ixntake DONE");
       return true;
     }
     return false;

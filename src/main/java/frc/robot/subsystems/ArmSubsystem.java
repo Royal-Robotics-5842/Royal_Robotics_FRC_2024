@@ -26,9 +26,9 @@ public class ArmSubsystem extends SubsystemBase{
     public double angle = 0.0;
 
     private final TrapezoidProfile.Constraints m_constraints =
-      new TrapezoidProfile.Constraints(165, 165);
+      new TrapezoidProfile.Constraints(180,180);
     private final ProfiledPIDController m_controller =
-      new ProfiledPIDController(0.04, 0,0, m_constraints, 0.02);
+      new ProfiledPIDController(0.055, 0,0, m_constraints, 0.02);
 
     //DigitalInput armLimitSwitch = new DigitalInput(0);
     public double pidSpeed;
