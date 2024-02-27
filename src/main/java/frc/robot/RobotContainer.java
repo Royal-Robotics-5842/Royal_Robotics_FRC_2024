@@ -33,7 +33,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    m_endgameSubsystem.setDefaultCommand(new EndgameCmd(m_endgameSubsystem, m_driverController.getLeftTriggerAxis(),m_driverController.getLeftTriggerAxis()));
+    m_endgameSubsystem.setDefaultCommand(new EndgameCmd(m_endgameSubsystem, m_driverController.getLeftTriggerAxis(),m_driverController.getRightTriggerAxis(), m_driverController.a().getAsBoolean()));
     // remember to add endgame reverse button - Joseph
     
     configureBindings();

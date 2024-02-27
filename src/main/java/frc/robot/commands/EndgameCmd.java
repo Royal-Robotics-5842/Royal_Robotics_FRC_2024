@@ -9,21 +9,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class EndgameCmd extends Command {
 
     private final EndgameSubsystem m_endgameSubsystem;
-    private double egspeed;
-    private double egspeed2;
+    private double egspeedL;
+    private double egspeedR;
+    private boolean invooort = false;
 
-    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed) {
+
+    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed, double speed2, boolean invooort) {
+      egspeedL = speed;
+      egspeedR = speed2;
+      invooort = this.invooort;
       m_endgameSubsystem = endgameSubsystem;
-      egspeed = speed;
-
-      addRequirements(endgameSubsystem);
-    }
-
-    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed, double speed2) {
-      m_endgameSubsystem = endgameSubsystem;
-      egspeed = speed;
-      egspeed2 = speed2;
-
       addRequirements(endgameSubsystem);
     }
 
@@ -34,7 +29,11 @@ public class EndgameCmd extends Command {
   
     @Override
     public void execute() {
-      m_endgameSubsystem.setMotors(egspeed, egspeed2);
+      if(invooort==true) {
+        egspeedL *= -1;
+        egspeedR *= -1;
+      }
+      m_endgameSubsystem.setMotors(egspeedL, egspeedR);
     }
   
     @Override
