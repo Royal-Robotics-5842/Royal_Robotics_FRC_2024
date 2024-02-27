@@ -14,10 +14,10 @@ public class EndgameCmd extends Command {
     private boolean invooort = false;
 
 
-    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed, double speed2, boolean invooort) {
+    public EndgameCmd(EndgameSubsystem endgameSubsystem, double speed, double speed2, boolean invoort) {
       egspeedL = speed;
       egspeedR = speed2;
-      invooort = this.invooort;
+      invooort = invoort;
       m_endgameSubsystem = endgameSubsystem;
       addRequirements(endgameSubsystem);
     }
