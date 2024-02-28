@@ -52,7 +52,7 @@
         "y": 5.52
       },
       "prevControl": {
-        "x": 0.7882513404565654,
+        "x": 0.788251340456565,
         "y": 5.52
       },
       "nextControl": null,
@@ -144,7 +144,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

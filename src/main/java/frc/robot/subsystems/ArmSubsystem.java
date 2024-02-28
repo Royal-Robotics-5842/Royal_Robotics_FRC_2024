@@ -31,7 +31,6 @@ public class ArmSubsystem extends SubsystemBase{
     private final ProfiledPIDController m_controller =
       new ProfiledPIDController(0.055, 0,0, m_constraints, 0.02);
 
-    //DigitalInput armLimitSwitch = new DigitalInput(0);
     public double pidSpeed;
 
 
@@ -42,8 +41,8 @@ public class ArmSubsystem extends SubsystemBase{
         ArmLeft.setSmartCurrentLimit(80);
         ArmRight.setSmartCurrentLimit(80);
 
-        ArmRight.setIdleMode(IdleMode.kBrake);
-        ArmLeft.setIdleMode(IdleMode.kBrake);
+        ArmRight.setIdleMode(IdleMode.kCoast);
+        ArmLeft.setIdleMode(IdleMode.kCoast);
 
         ArmLeftEncoder.setPositionConversionFactor(420/360);
         

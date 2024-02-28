@@ -1,8 +1,10 @@
 package frc.robot.commands.ArmCommands;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmShotSpeaker extends Command {
   /** Creates a new ArmtoSetpoint. */
@@ -18,6 +20,8 @@ public class ArmShotSpeaker extends Command {
   public void initialize() 
   {
     System.out.println("Arm speaker Start");
+    arm.ArmRight.setIdleMode(IdleMode.kBrake);
+    arm.ArmLeft.setIdleMode(IdleMode.kBrake);
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -31,13 +35,20 @@ public class ArmShotSpeaker extends Command {
   public void end(boolean interrupted)
   {
     arm.setSpeed(0);
-    
+    arm.ArmRight.setIdleMode(IdleMode.kBrake);
+    arm.ArmLeft.setIdleMode(IdleMode.kBrake);
   }
 
 
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
+
+    if((arm.getLimit() == false) && (arm.pidSpeed < 0.0))
+    {
+      return true;
+    }
+    
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmShotSpeaker)) <= 0.5))
     {  
       System.out.println("ArmSHOT DONE");    

@@ -1,5 +1,7 @@
 package frc.robot.commands.ArmCommands;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -27,7 +29,8 @@ public class ArmWithController extends Command {
   @Override
   public void initialize() 
   {
-
+    arm.ArmRight.setIdleMode(IdleMode.kBrake);
+    arm.ArmLeft.setIdleMode(IdleMode.kBrake);
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -43,7 +46,8 @@ public class ArmWithController extends Command {
   public void end(boolean interrupted)
   {
     arm.setSpeed(0);
-    
+    arm.ArmRight.setIdleMode(IdleMode.kBrake);
+    arm.ArmLeft.setIdleMode(IdleMode.kBrake);
   }
 
 
