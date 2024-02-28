@@ -23,7 +23,7 @@ public class ArmIntake extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmIntake);
+    arm.moveArm(Constants.armConstants.ArmIntake);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +45,7 @@ public class ArmIntake extends Command {
             return true;
         }
 
-    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmIntake)) <= 0.5) )
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmIntake)) <= 0.5) )
     {
       System.out.println("Arm ixntake DONE");
       return true;

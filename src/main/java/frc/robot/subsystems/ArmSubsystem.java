@@ -11,10 +11,11 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase{
-    public CANSparkMax ArmLeft = new CANSparkMax(41, MotorType.kBrushless);
-    public CANSparkMax ArmRight = new CANSparkMax(42, MotorType.kBrushless);
+    public CANSparkMax ArmLeft = new CANSparkMax(Constants.armConstants.leftCANID, MotorType.kBrushless);
+    public CANSparkMax ArmRight = new CANSparkMax(Constants.armConstants.rightCANID, MotorType.kBrushless);
 
     public RelativeEncoder ArmLeftEncoder = ArmLeft.getEncoder();
     

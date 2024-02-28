@@ -94,7 +94,7 @@ public final class Constants {
                        //DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
         public static final double kMaxAccelerationMetersPerSecondSquared = 2;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 1;//Math.PI / 4;
-        public static final double kPXController =3.3;
+        public static final double kPXController =3.75;
         //public static final double kPYController = .5;
         public static final double kPThetaController =1.5;
 
@@ -115,8 +115,19 @@ public final class Constants {
     
     public static final double kDeadband = 0.05;
 }
+  public static final class armConstants {
   public static double ArmIntake = 0;
   public static double ArmShotSpeaker = 43;
   public static double ArmAmp = 63.1;
+
+  public static int leftCANID = 41; 
+  public static int rightCANID = 42;
+}
+
+  public static final class endgameConstants {
+    public static int leftCANID = 51; 
+    public static int rightCANID = 52;
+}
+
 
 }

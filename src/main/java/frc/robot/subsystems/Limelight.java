@@ -95,10 +95,10 @@ public class Limelight {
 
     public double angle()
     {
-        double d1 = Constants.ArmShotSpeaker;
+        double d1 = Constants.armConstants.ArmShotSpeaker;
         double d2 = (getDistanceFromLimelightToGoalInches());// + speakerHoleDistance);
         //double h1 = speakerHoleHeight;
-        double theta2 = (180/Math.PI) * (Math.atan((Math.tan(Constants.ArmShotSpeaker* (Math.PI/180))*d1)/(d2)));
+        double theta2 = (180/Math.PI) * (Math.atan((Math.tan(Constants.armConstants.ArmShotSpeaker* (Math.PI/180))*d1)/(d2)));
         //System.out.println(getDistanceFromLimelightToGoalInches());
         return theta2;
     }

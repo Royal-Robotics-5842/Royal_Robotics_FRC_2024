@@ -23,7 +23,7 @@ public class ArmShotSpeaker extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmShotSpeaker);
+    arm.moveArm(Constants.armConstants.ArmShotSpeaker);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,7 +38,7 @@ public class ArmShotSpeaker extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmShotSpeaker)) <= 0.5))
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmShotSpeaker)) <= 0.5))
     {  
       System.out.println("ArmSHOT DONE");    
       return true;

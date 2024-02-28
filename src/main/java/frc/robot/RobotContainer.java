@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,15 +17,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ArmCommands.ArmAmp;
 import frc.robot.commands.ArmCommands.ArmIntake;
-import frc.robot.commands.ArmCommands.ArmLimelight;
 import frc.robot.commands.ArmCommands.ArmShotSpeaker;
 import frc.robot.commands.ArmCommands.ArmWithController;
+import frc.robot.commands.EndgameCommands.EndgameCmd;
 import frc.robot.commands.IntakeCommands.intakeNote;
 import frc.robot.commands.ShooterCommands.ShootActiveCmd;
 import frc.robot.commands.ShooterCommands.StopShooter;
 import frc.robot.commands.SwerveCommands.SwerveJoystickCmd;
 import frc.robot.commands.SwerveCommands.setTo0;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.EndgameSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 //import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -44,6 +44,7 @@ public class RobotContainer {
   private final IntakeSubsystem intake = new IntakeSubsystem();
   public static ArmSubsystem arm = new ArmSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
+  private final EndgameSubsystem endgameSubsystem = new EndgameSubsystem();
 
   //private final DigitalInput armLimitSwitch = new DigitalInput(0);
 
@@ -67,14 +68,10 @@ public class RobotContainer {
       () ->  -driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> true));
 
-             //intake.setDefaultCommand(new intakeNoteWithController(intake));
-
-       System.out.println("ARM LIMIT");//+ armLimitSwitch.get());
-       
-
+          
       NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.125)
                                         .alongWith(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm).withTimeout(1.75))));
+                                        .alongWith(new ArmShotSpeaker(arm).withTimeout(1))));
 
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).alongWith(
                                 new ArmIntake(arm)));
@@ -124,25 +121,32 @@ public class RobotContainer {
     m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0));
     m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0));
 
-    m_driverController.leftBumper().onTrue(new ArmWithController(arm, 0.1));
-    m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.1));
+    m_driverController.leftBumper().onTrue(new ArmWithController(arm, 0.25));
+    m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
-    //m_driverController.b().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
+  
+     
+    
 
 
 //
 
 //OPERATOR CONTROLLER COMMANDS
-    m_operatorController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
+    //m_operatorController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    m_operatorController.x().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
+    //m_operatorController.x().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
 
-    m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
-    m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
+    //m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
+    //m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
     m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500));
     m_operatorController.a().onTrue(new ShootActiveCmd(shooter, 0));
 
+    m_operatorController.leftBumper().toggleOnTrue(new EndgameCmd(endgameSubsystem, 0.5, 0, m_operatorController.a().getAsBoolean()));
+    m_operatorController.rightBumper().toggleOnTrue(new EndgameCmd(endgameSubsystem, 0, 0.5, m_operatorController.a().getAsBoolean()));
+
+    m_operatorController.leftBumper().toggleOnFalse(new EndgameCmd(endgameSubsystem, 0, 0, m_operatorController.a().getAsBoolean()));
+    m_operatorController.rightBumper().toggleOnFalse(new EndgameCmd(endgameSubsystem, 0, 0, m_operatorController.a().getAsBoolean()));
 
 }
   
@@ -153,11 +157,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    swerveSubsystem.frontRight.setCoast();
-    swerveSubsystem.frontLeft.setCoast();
-    swerveSubsystem.backLeft.setCoast();
-    swerveSubsystem.backRight.setCoast();
+    
+    
 
     PathPlannerPath LeftNote = PathPlannerPath.fromPathFile("LeftNote");
     PathPlannerPath LeftNoteRev = PathPlannerPath.fromPathFile("LeftNoteReverse");
@@ -167,8 +168,8 @@ public class RobotContainer {
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
            
-    //return autoChooser.getSelected();
-    return new PathPlannerAuto("test2");
+    return autoChooser.getSelected();
+    //return new PathPlannerAuto("test1");
     /*
     return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
         .andThen(AutoBuilder.followPath(LeftNote)

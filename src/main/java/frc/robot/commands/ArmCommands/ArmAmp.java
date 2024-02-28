@@ -1,8 +1,8 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmAmp extends Command {
   /** Creates a new ArmtoSetpoint. */
@@ -23,7 +23,7 @@ public class ArmAmp extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.ArmAmp);
+    arm.moveArm(Constants.armConstants.ArmAmp);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,7 +38,7 @@ public class ArmAmp extends Command {
   // Returns true when the command should end.`
   @Override
   public boolean isFinished() {
-    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.ArmAmp)) <= 0.5))
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmAmp)) <= 0.5))
     {
       System.out.print("Arm Amp DONE");
       return true;
