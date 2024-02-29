@@ -44,11 +44,6 @@ public class ArmShotSpeaker extends Command {
   @Override
   public boolean isFinished() {
 
-    if((arm.getLimit() == false) && (arm.pidSpeed < 0.0))
-    {
-      return true;
-    }
-    
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmShotSpeaker)) <= 0.5))
     {  
       System.out.println("ArmSHOT DONE");    

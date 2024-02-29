@@ -45,11 +45,6 @@ public class ArmAmp extends Command {
   @Override
   public boolean isFinished() {
 
-    if((arm.getLimit() == false) && (arm.pidSpeed < 0.0))
-    {
-      return true;
-    }
-    
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmAmp)) <= 0.5))
     {
       System.out.print("Arm Amp DONE");
