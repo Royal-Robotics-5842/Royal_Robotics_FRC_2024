@@ -76,11 +76,14 @@ public class RobotContainer {
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).alongWith(
                                 new ArmIntake(arm)));
 
+        NamedCommands.registerCommand("ArmAmp", new ArmAmp(arm));
 
       NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.25));
                           
       NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.5).withTimeout(3));
 
+      NamedCommands.registerCommand("OuttakeNote", new intakeNote(intake, -1).withTimeout(1));
+      
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -186,7 +189,8 @@ public class RobotContainer {
         .andThen(AutoBuilder.followPath(MidNoteRev))
         .andThen(AutoBuilder.followPath(FifthNote))
         .andThen(AutoBuilder.followPath(FifthNoteRev));
-    
+   */ 
+  /*
     // 1. Create trajectory settings
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
@@ -212,7 +216,6 @@ public class RobotContainer {
                 new Pose2d(2,0, Rotation2d.fromDegrees(0)),
                 trajectoryConfig);
         
-
 
         var concattraj = trajectory1.concatenate(trajectory2);
 
@@ -253,7 +256,6 @@ public class RobotContainer {
                 swerveControllerCommand,
                 //swerveControllerCommand2,
                 new InstantCommand(() -> swerveSubsystem.stopModules()));
-
-                */
-  }
+*/
+               }
 }
