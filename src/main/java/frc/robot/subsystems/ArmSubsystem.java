@@ -45,6 +45,7 @@ public class ArmSubsystem extends SubsystemBase{
         ArmLeft.setIdleMode(IdleMode.kCoast);
 
         ArmLeftEncoder.setPositionConversionFactor(420/360);
+        ArmLeftEncoder.setPosition(0);
         
         ArmRight.follow(ArmLeft, true);
     
@@ -52,7 +53,6 @@ public class ArmSubsystem extends SubsystemBase{
 
     public void setSpeed(double speed)
     {
-
         ArmLeft.set(speed);
         ArmRight.set(speed);
     }
