@@ -12,18 +12,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "ArmShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteforShoot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "longLeft"

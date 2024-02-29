@@ -195,8 +195,8 @@ public class SwerveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Robot Heading", getHeading());
              
     odometer.update(getRotation2d(), new SwerveModulePosition[] {
-      frontLeft.getPosition(),
       frontRight.getPosition(),
+      frontLeft.getPosition(),
       backLeft.getPosition(),
       backRight.getPosition()});
 
@@ -206,6 +206,6 @@ public class SwerveSubsystem extends SubsystemBase {
       // Do this in either robot periodic or subsystem periodic
       m_field.setRobotPose(odometer.getPoseMeters());
 
-    
+      
   }
 }

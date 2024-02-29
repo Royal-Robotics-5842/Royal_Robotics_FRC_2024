@@ -6,12 +6,14 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
@@ -19,7 +21,8 @@ import frc.robot.commands.ArmCommands.ArmAmp;
 import frc.robot.commands.ArmCommands.ArmIntake;
 import frc.robot.commands.ArmCommands.ArmShotSpeaker;
 import frc.robot.commands.ArmCommands.ArmWithController;
-import frc.robot.commands.EndgameCommands.EndgameCmd;
+import frc.robot.commands.EndgameCommands.EndgameLeft;
+import frc.robot.commands.EndgameCommands.EndgameRight;
 import frc.robot.commands.IntakeCommands.intakeNote;
 import frc.robot.commands.ShooterCommands.ShootActiveCmd;
 import frc.robot.commands.ShooterCommands.StopShooter;
@@ -115,7 +118,7 @@ public class RobotContainer {
                                 .andThen(new ShootActiveCmd(shooter, 3500))
                                 .alongWith(new ArmShotSpeaker(arm)));
 
-    m_driverController.a().onTrue(new ArmIntake(arm).andThen(new StopShooter(shooter)));
+    m_driverController.a().onTrue(new ArmIntake(arm));
 
     m_driverController.x().onTrue(new ArmAmp(arm));
 
@@ -145,11 +148,12 @@ public class RobotContainer {
     m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500));
     m_operatorController.a().onTrue(new ShootActiveCmd(shooter, 0));
 
-    m_operatorController.leftBumper().toggleOnTrue(new EndgameCmd(endgameSubsystem, 0.5, 0, m_operatorController.a().getAsBoolean()));
-    m_operatorController.rightBumper().toggleOnTrue(new EndgameCmd(endgameSubsystem, 0, 0.5, m_operatorController.a().getAsBoolean()));
+    m_operatorController.leftBumper().onTrue(new EndgameLeft(endgameSubsystem, 0.5));
+    m_operatorController.rightBumper().onTrue(new EndgameRight(endgameSubsystem, 0.5));
 
-    m_operatorController.leftBumper().toggleOnFalse(new EndgameCmd(endgameSubsystem, 0, 0, m_operatorController.a().getAsBoolean()));
-    m_operatorController.rightBumper().toggleOnFalse(new EndgameCmd(endgameSubsystem, 0, 0, m_operatorController.a().getAsBoolean()));
+     m_operatorController.leftBumper().onFalse(new EndgameLeft(endgameSubsystem, 0));
+    m_operatorController.rightBumper().onFalse(new EndgameRight(endgameSubsystem, 0));
+
 
 }
   
@@ -170,16 +174,16 @@ public class RobotContainer {
     PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
-           
-    return autoChooser.getSelected();
-    //return new PathPlannerAuto("test1");
-    /*
-    return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
-        .andThen(AutoBuilder.followPath(LeftNote)
-        .andThen(AutoBuilder.followPath(LeftNoteRev)
-        .andThen(AutoBuilder.followPath(MidNote)
-        .andThen(AutoBuilder.followPath(MidNoteRev)))));
-        */
+   return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));
+    //return autoChooser.getSelected();
+    //return new PathPlannerAuto("Blue, Middle - 3 Note");
+    
+    //return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
+       // .andThen(AutoBuilder.followPath(MidNoteRev));
+        //.andThen(AutoBuilder.followPath(LeftNoteRev)
+        //.andThen(AutoBuilder.followPath(MidNote)
+        //.andThen(AutoBuilder.followPath(MidNoteRev)))));
+        
 /*
     // Create a path following command using AutoBuilder. This will also trigger event markers.
         return Commands.runOnce(()->swerveSubsystem.resetOdemetry(LeftNote.getPreviewStartingHolonomicPose()))
