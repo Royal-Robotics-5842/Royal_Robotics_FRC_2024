@@ -175,8 +175,8 @@ public class RobotContainer {
     PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
 
    //return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));
-    //return autoChooser.getSelected();
-    return new PathPlannerAuto("Blue, Middle - 3 Note");
+    return autoChooser.getSelected();
+    //return new PathPlannerAuto("Blue, Middle - 3 Note");
     
     //return Commands.runOnce(()->swerveSubsystem.resetOdemetry(MidNote.getPreviewStartingHolonomicPose()))
        // .andThen(AutoBuilder.followPath(MidNoteRev));

@@ -25,6 +25,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ArmIntake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "BlueLeft - LeftAmp"
