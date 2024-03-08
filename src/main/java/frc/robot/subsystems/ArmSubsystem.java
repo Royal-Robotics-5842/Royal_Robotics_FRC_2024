@@ -18,9 +18,10 @@ public class ArmSubsystem extends SubsystemBase{
     public CANSparkMax ArmRight = new CANSparkMax(Constants.armConstants.rightCANID, MotorType.kBrushless);
 
     public RelativeEncoder ArmLeftEncoder = ArmLeft.getEncoder();
-    
+    public RelativeEncoder ArmRightEncoder = ArmRight.getEncoder();
 
     SparkPIDController ArmLeftController = ArmLeft.getPIDController();
+    
     
     DigitalInput armLimitSwitch = new DigitalInput(0);
 
@@ -46,6 +47,7 @@ public class ArmSubsystem extends SubsystemBase{
 
         ArmLeftEncoder.setPositionConversionFactor(420/360);
         ArmLeftEncoder.setPosition(0);
+        ArmRightEncoder.setPosition(0);
         
         ArmRight.follow(ArmLeft, true);
     
@@ -68,8 +70,7 @@ public class ArmSubsystem extends SubsystemBase{
          
 
         ArmLeft.set(pidSpeed);
-        }
-
+    }
     public void getEncoder()
     {
         ArmLeftEncoder.getPosition();
@@ -82,4 +83,5 @@ public class ArmSubsystem extends SubsystemBase{
        
  } 
 }
+
 

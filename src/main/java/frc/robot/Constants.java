@@ -117,8 +117,8 @@ public final class Constants {
 }
   public static final class armConstants {
   public static double ArmIntake = 0;
-  public static double ArmShotSpeaker = 47;
-  public static double ArmAmp = 63.1;
+  public static double ArmShotSpeaker = 41;
+  public static double ArmAmp = 56;
 
   public static int leftCANID = 41; 
   public static int rightCANID = 42;
