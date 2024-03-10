@@ -21,15 +21,12 @@ import frc.robot.commands.ArmCommands.ArmAmp;
 import frc.robot.commands.ArmCommands.ArmIntake;
 import frc.robot.commands.ArmCommands.ArmShotSpeaker;
 import frc.robot.commands.ArmCommands.ArmWithController;
-import frc.robot.commands.EndgameCommands.EndgameLeft;
-import frc.robot.commands.EndgameCommands.EndgameRight;
 import frc.robot.commands.IntakeCommands.intakeNote;
 import frc.robot.commands.ShooterCommands.ShootActiveCmd;
 import frc.robot.commands.ShooterCommands.StopShooter;
 import frc.robot.commands.SwerveCommands.SwerveJoystickCmd;
 import frc.robot.commands.SwerveCommands.setTo0;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.EndgameSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 //import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -46,8 +43,7 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
   public static ArmSubsystem arm = new ArmSubsystem();
-  private final ShooterSubsystem shooter = new ShooterSubsystem();
-  private final EndgameSubsystem endgameSubsystem = new EndgameSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem(); 
 
   //private final DigitalInput armLimitSwitch = new DigitalInput(0);
 
@@ -72,9 +68,9 @@ public class RobotContainer {
       () -> true));
 
           
-      NamedCommands.registerCommand("ArmShoot", (new intakeNote(intake, -.5).withTimeout(0.125)
-                                        .alongWith(new ShootActiveCmd(shooter, 3500))
-                                        .alongWith(new ArmShotSpeaker(arm).withTimeout(1))));
+      NamedCommands.registerCommand("ArmShoot", 
+                                new intakeNote(intake, -0.5).withTimeout(0.2)
+                                .andThen(new ShootActiveCmd(shooter, 3500)).alongWith(new ArmShotSpeaker(arm)));
 
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).alongWith(
                                 new ArmIntake(arm)));
@@ -91,12 +87,10 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser();
 
         // Another option that allows you to specify the default auto by its name
-        // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+        //autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
-        
-        SmartDashboard.putBoolean("SHOOTER PID DONE?", new ShootActiveCmd(shooter, 3500).isFinished());
-    
+            
   }
 
   /**
@@ -118,7 +112,7 @@ public class RobotContainer {
                                 .andThen(new ShootActiveCmd(shooter, 3500))
                                 .alongWith(new ArmShotSpeaker(arm)));
 
-    m_driverController.a().onTrue(new ArmIntake(arm));
+    m_driverController.a().onTrue(new ArmIntake(arm).alongWith(new StopShooter(shooter).withTimeout(0.2)));
 
     m_driverController.x().onTrue(new ArmAmp(arm));
 
@@ -148,13 +142,6 @@ public class RobotContainer {
     m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500));
     m_operatorController.a().onTrue(new ShootActiveCmd(shooter, 0));
 
-    m_operatorController.leftBumper().onTrue(new EndgameLeft(endgameSubsystem, 0.5));
-    m_operatorController.rightBumper().onTrue(new EndgameRight(endgameSubsystem, 0.5));
-
-     m_operatorController.leftBumper().onFalse(new EndgameLeft(endgameSubsystem, 0));
-    m_operatorController.rightBumper().onFalse(new EndgameRight(endgameSubsystem, 0));
-
-
 }
   
 
@@ -164,17 +151,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    
-    
-
-    PathPlannerPath LeftNote = PathPlannerPath.fromPathFile("LeftNote");
-    PathPlannerPath LeftNoteRev = PathPlannerPath.fromPathFile("LeftNoteReverse");
-    PathPlannerPath MidNote = PathPlannerPath.fromPathFile("MidNote");
-    PathPlannerPath MidNoteRev = PathPlannerPath.fromPathFile("MidNoteRev");
-    PathPlannerPath FifthNote = PathPlannerPath.fromPathFile("FifthNote");
-    PathPlannerPath FifthNoteRev = PathPlannerPath.fromPathFile("FifthNoteRev");
-
-   //return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));
+   
+    //return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));
     return autoChooser.getSelected();
     //return new PathPlannerAuto("Blue, Middle - 3 Note");
     

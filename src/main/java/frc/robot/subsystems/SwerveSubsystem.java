@@ -199,6 +199,26 @@ public class SwerveSubsystem extends SubsystemBase {
       // Do this in either robot periodic or subsystem periodic
       m_field.setRobotPose(odometer.getPoseMeters());
 
+      SmartDashboard.putNumber("FR Drive Encoder",frontRight.getDrivePosition());
+      SmartDashboard.putNumber("FL Drive Encoder", frontLeft.getDrivePosition());
+      SmartDashboard.putNumber("BR Drive Encoder", backRight.getDrivePosition());
+      SmartDashboard.putNumber("BL Drive Encoder", backLeft.getDrivePosition());
+
+      SmartDashboard.putNumber("FR Turning Encoder", frontRight.getAbsoluteEncoderPositon());
+      SmartDashboard.putNumber("FL Turning Encoder", frontLeft.getAbsoluteEncoderPositon());
+      SmartDashboard.putNumber("BR Turning Encoder", backRight.getAbsoluteEncoderPositon());
+      SmartDashboard.putNumber("BL Turning Encoder", backLeft.getAbsoluteEncoderPositon());
+
+      SmartDashboard.putBoolean("FR Drive Rev", frontRight.getDriveMotorRev());
+      SmartDashboard.putBoolean("FL Drive Rev", frontLeft.getDriveMotorRev());
+      SmartDashboard.putBoolean("BR Drive Rev", backRight.getDriveMotorRev());
+      SmartDashboard.putBoolean("BL Drive Rev", backLeft.getDriveMotorRev());
+        
+      SmartDashboard.putBoolean("FR Turn Rev", frontRight.getTurnMotorRev());
+      SmartDashboard.putBoolean("FL Turn Rev", frontLeft.getTurnMotorRev());
+      SmartDashboard.putBoolean("BR Turn Rev", backRight.getTurnMotorRev());
+      SmartDashboard.putBoolean("BL Turn Rev", backLeft.getTurnMotorRev());
+
       
   }
 }

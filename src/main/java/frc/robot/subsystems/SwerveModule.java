@@ -64,15 +64,15 @@ public class SwerveModule {
         turnMotor.setIdleMode(IdleMode.kBrake);
 
         //Current limiting the motors
-        driveMotor.setSmartCurrentLimit(50); 
-        turnMotor.setSmartCurrentLimit(50);
+        driveMotor.setSmartCurrentLimit(40); 
+        turnMotor.setSmartCurrentLimit(40);
 
         //Getting the value of the built in encoders of the motors
         driveBuiltInEncoder = driveMotor.getEncoder();
 
         //Setting the conversion factors for the encoders
-        //driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
-        //driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
+        driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
+        driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
 
         //Making the pid stuff for turning the wheels per joytick output
         turningPidController = new PIDController(Constants.ModuleConstants.kTurnP,0, 0);

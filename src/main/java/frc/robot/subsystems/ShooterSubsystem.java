@@ -12,12 +12,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.hal.CANAPITypes.CANDeviceType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    public CANSparkMax rightShooter = new CANSparkMax(3, MotorType.kBrushless); 
-    public CANSparkMax leftShooter = new CANSparkMax(35, MotorType.kBrushless);
+    public CANSparkMax rightShooter = new CANSparkMax(Constants.shooterConstants.rightCANID, MotorType.kBrushless); 
+    public CANSparkMax leftShooter = new CANSparkMax(Constants.shooterConstants.leftCANID, MotorType.kBrushless);
 
     public RelativeEncoder shooterEncoder = rightShooter.getEncoder();
     
@@ -36,8 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
         leftShooter.follow(rightShooter);
 
-        leftShooter.setIdleMode(IdleMode.kBrake);
-        rightShooter.setIdleMode(IdleMode.kBrake);
+        leftShooter.setIdleMode(IdleMode.kCoast);
+        rightShooter.setIdleMode(IdleMode.kCoast);
 
     }
 
