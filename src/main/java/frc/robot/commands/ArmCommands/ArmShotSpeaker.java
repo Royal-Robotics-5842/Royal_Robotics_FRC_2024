@@ -19,7 +19,7 @@ public class ArmShotSpeaker extends Command {
   @Override
   public void initialize() 
   {
-    System.out.println("Arm speaker Start");
+    System.out.println("Arm speaker START");
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
   }
@@ -34,6 +34,7 @@ public class ArmShotSpeaker extends Command {
   @Override
   public void end(boolean interrupted)
   {
+    System.out.println("Arm speaker DONE");
     arm.setSpeed(0);
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
@@ -45,8 +46,7 @@ public class ArmShotSpeaker extends Command {
   public boolean isFinished() {
 
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmShotSpeaker)) <= 0.5))
-    {  
-      System.out.println("ArmSHOT DONE");    
+    {    
       return true;
     }
     return false;

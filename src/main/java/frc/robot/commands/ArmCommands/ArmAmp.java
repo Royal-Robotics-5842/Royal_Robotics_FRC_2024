@@ -35,6 +35,7 @@ public class ArmAmp extends Command {
   @Override
   public void end(boolean interrupted)
   {
+    System.out.println("Arm amp Start");
     arm.setSpeed(0);
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake); 

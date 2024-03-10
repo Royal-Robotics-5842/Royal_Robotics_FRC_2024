@@ -6,7 +6,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class StopShooter extends Command  {
 
     private ShooterSubsystem shootSubsystem;
-    private double speed;
     public StopShooter(ShooterSubsystem shootSubsystem) {
         this.shootSubsystem = shootSubsystem;
         addRequirements(shootSubsystem);
@@ -14,6 +13,7 @@ public class StopShooter extends Command  {
 
     @Override
     public void initialize() {
+        System.out.println("StopShooter START");
     }
 
     @Override
@@ -24,7 +24,7 @@ public class StopShooter extends Command  {
 
     @Override
     public void end(boolean interupted) {
-          
+        System.out.println("StopShooter START");
     }
 
     @Override

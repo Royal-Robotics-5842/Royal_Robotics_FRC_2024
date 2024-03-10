@@ -19,7 +19,7 @@ public class ArmIntake extends Command {
   @Override
   public void initialize() 
   {
-    System.out.println("Arm intake Start");
+    System.out.println("Arm intake START");
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
 
@@ -35,6 +35,7 @@ public class ArmIntake extends Command {
   @Override
   public void end(boolean interrupted)
   {
+    System.out.println("Arm intake DONE");
     arm.setSpeed(0);
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
@@ -52,7 +53,6 @@ public class ArmIntake extends Command {
 
     if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmIntake)) <= 0.5) )
     {
-      System.out.println("Arm intake DONE");
       return true;
     }
     return false;

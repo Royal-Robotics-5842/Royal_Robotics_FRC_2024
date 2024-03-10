@@ -5,10 +5,7 @@
 package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
 public class intakeNote extends Command {
   /** Creates a new intakeNote. */
@@ -29,17 +26,17 @@ public class intakeNote extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
+  public void execute() 
+  {
+    System.out.println("IntakeNote START");  
     intakeSubsystem.setMotors(speed);
-    
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     //ommands.sequence(new intakeNote(intakeSubsystem, 0.1).withTimeout(1));
+    System.out.println("IntakeNote START");
     intakeSubsystem.setMotors(0);
   }
 
