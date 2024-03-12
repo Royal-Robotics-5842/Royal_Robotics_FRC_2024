@@ -22,13 +22,10 @@ public final class Constants {
 
   public static final class ModuleConstants
   {
-    public static final double kWheelDiameterMeters = Units.inchesToMeters(4); //https://www.swervedrivespecialties.com/products/billet-wheel-4d-x-1-5w-bearing-bore
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(3.72); //https://www.swervedrivespecialties.com/products/billet-wheel-4d-x-1-5w-bearing-bore
     public static final double kDriveMotorGearRatio = 6.75; //https://www.swervedrivespecialties.com/products/mk4i-swerve-module
-    public static final double kTurinigMotorGearRatio = 150/7; //https://www.andymark.com/products/mk4i-swerve-modules#:~:text=The%20full%20steering%20ratio%20of,1%20and%20Falcon%20500%20motors.
-    public static final double kDriveEncoderRot2Meter = kDriveMotorGearRatio*Math.PI*kWheelDiameterMeters;
-    public static final double kTurningEncoderRot2Rad = kTurinigMotorGearRatio*2*Math.PI;
+    public static final double kDriveEncoderRot2Meter = (Math.PI*kWheelDiameterMeters)/kDriveMotorGearRatio;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-    public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
     public static final double kTurnP = 0.0073; //Krish Updated
   }
 
@@ -70,8 +67,8 @@ public final class Constants {
       public static final int kFrontRightTurnAbsoluteEncoderPort = 34;
       public static final int kBackRightTurnAbsoluteEncoderPort = 32;
 
-      public static final double kPhysicalMaxSpeedMetersPerSecond = 4; //Units.feetToMeters(14.5); //https://www.andymark.com/products/mk4i-swerve-modules#:~:text=The%20full%20steering%20ratio%20of,1%20and%20Falcon%20500%20motors.
-      public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 4 * Math.PI; //Value is based on above value from NEO
+      public static final double kPhysicalMaxSpeedMetersPerSecond = 2.25; //Units.feetToMeters(15.1); //https://www.swervedrivespecialties.com/products/mk4i-swerve-module
+      public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.25 * Math.PI; //Value is based on above value from NEO
       
       //public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4; //Dont want to run all swerve at max speed, dividing by 4
       //public static final double kTeleDrive MaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4 ; //Dont want to run all swerve at max speed, dividing by 4
@@ -82,14 +79,14 @@ public final class Constants {
 
   public static final class AutoConstants 
   {  
-      public static final double AutonMultiplier = 0.5; //Run auton at set speed compared to tele 
+      public static final double AutonMultiplier = 2; //Run auton at set speed compared to tele 
 
       public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond * AutonMultiplier ;
       public static final double kMaxAngularSpeedRadiansPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond * AutonMultiplier;
       //public static final double kMaxAccelerationMetersPerSecondSquared = 2;
       //public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 1;//Math.PI / 4;
-      public static final double kPXController =3.5; //Value is arbitrary
-      public static final double kPThetaController = 1.5; //Value is arbitrary
+      public static final double kPXController =1.1; //Value is arbitrary
+      public static final double kPThetaController = 4.5; //Value is arbitrary
 
   }
 

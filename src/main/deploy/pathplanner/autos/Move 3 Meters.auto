@@ -12,9 +12,16 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Move 2 Meters"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Move 3 Meters"
+                }
+              }
+            ]
           }
         }
       ]

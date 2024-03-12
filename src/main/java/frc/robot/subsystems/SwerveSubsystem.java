@@ -150,6 +150,14 @@ public class SwerveSubsystem extends SubsystemBase {
       backLeft.setDesiredState(desiredStates[3]);
     }
 
+    public void setModuleStatesAuton(SwerveModuleState[] desiredStates)
+    {
+      frontRight.setDesiredStateAuton(desiredStates[0]);
+      frontLeft.setDesiredStateAuton(desiredStates[1]);
+      backRight.setDesiredStateAuton(desiredStates[2]);
+      backLeft.setDesiredStateAuton(desiredStates[3]);
+    }
+
     public SwerveModuleState[] getModuleStates()
     {
       SwerveModuleState[] states = new SwerveModuleState[] {
@@ -178,7 +186,7 @@ public class SwerveSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("X SPEED",robotRelativeSpeeds.vxMetersPerSecond);
       
       SwerveModuleState[] targetStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(robotRelativeSpeeds);
-      setModuleStates(targetStates);
+      setModuleStatesAuton(targetStates);
     }
 
           

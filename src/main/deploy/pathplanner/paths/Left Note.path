@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2999999999999945,
+        "x": 2.3,
         "y": 5.56
       },
       "isLocked": false,
@@ -16,12 +16,28 @@
     },
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.56
+        "x": 2.5,
+        "y": 7.0
       },
       "prevControl": {
-        "x": 1.6,
-        "y": 5.56
+        "x": 1.5,
+        "y": 7.0
+      },
+      "nextControl": {
+        "x": 2.6,
+        "y": 7.0
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.89,
+        "y": 7.01
+      },
+      "prevControl": {
+        "x": 2.79,
+        "y": 7.01
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,9 +49,9 @@
   "eventMarkers": [
     {
       "name": "IntakeNote",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.5,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -50,7 +66,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 45.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 720.0,
     "maxAngularAcceleration": 720.0
@@ -66,5 +82,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

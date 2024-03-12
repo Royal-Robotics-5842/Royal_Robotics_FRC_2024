@@ -26,7 +26,6 @@ import frc.robot.commands.SwerveCommands.SwerveJoystickCmd;
 import frc.robot.commands.SwerveCommands.setTo0;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-//import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -70,14 +69,14 @@ public class RobotContainer {
                                 new intakeNote(intake, -0.5).withTimeout(0.2)
                                 .andThen(new ShootActiveCmd(shooter, 3500)).alongWith(new ArmShotSpeaker(arm)));
 
-      NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).alongWith(
+      NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.1).alongWith(
                                 new ArmIntake(arm)));
 
         NamedCommands.registerCommand("ArmAmp", new ArmAmp(arm));
 
-      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.25));
+      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.1));
                           
-      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.5).withTimeout(3));
+      NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.95).withTimeout(3));
 
       NamedCommands.registerCommand("OuttakeNote", new intakeNote(intake, -1).withTimeout(1));
       

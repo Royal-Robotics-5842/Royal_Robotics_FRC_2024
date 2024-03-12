@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.CANcoder;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
 public class SwerveModule {
@@ -55,7 +55,7 @@ public class SwerveModule {
         turnMotorRev = turnMotorReversed;
 
         //Telling it what mode to be in while not getting user input
-        driveMotor.setIdleMode(IdleMode.kCoast);
+        driveMotor.setIdleMode(IdleMode.kBrake);
         turnMotor.setIdleMode(IdleMode.kBrake);
 
         //Current limiting the motors
@@ -67,7 +67,7 @@ public class SwerveModule {
 
         //Setting the conversion factors for the encoders
         driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRot2Meter);
-        driveBuiltInEncoder.setPositionConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
+        driveBuiltInEncoder.setVelocityConversionFactor(Constants.ModuleConstants.kDriveEncoderRPM2MeterPerSec);
 
         //Making the pid stuff for turning the wheels per joytick output
         turningPidController = new PIDController(Constants.ModuleConstants.kTurnP,0, 0);
@@ -154,7 +154,20 @@ public class SwerveModule {
         }
         state = SwerveModuleState.optimize(state, getState().angle);
         driveMotor.set(state.speedMetersPerSecond/DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), state.angle.getDegrees()));
+        // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
+        // .getdegrees and .getangle
+    }
 
+     public void setDesiredStateAuton(SwerveModuleState state)
+    {
+        if(Math.abs(state.speedMetersPerSecond) <= 0.01)
+        {
+            stop();
+            return;
+        }
+        state = SwerveModuleState.optimize(state, getState().angle);
+        driveMotor.set(state.speedMetersPerSecond/AutoConstants.kMaxSpeedMetersPerSecond);
         turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), state.angle.getDegrees()));
         // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
         // .getdegrees and .getangle

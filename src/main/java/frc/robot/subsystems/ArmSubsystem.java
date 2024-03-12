@@ -30,7 +30,7 @@ public class ArmSubsystem extends SubsystemBase{
     private final TrapezoidProfile.Constraints m_constraints =
       new TrapezoidProfile.Constraints(180,180);
     private final ProfiledPIDController m_controller =
-      new ProfiledPIDController(0.055, 0,0, m_constraints, 0.02);
+      new ProfiledPIDController(0.065, 0,0, m_constraints, 0.02);
 
     public double pidSpeed;
 
