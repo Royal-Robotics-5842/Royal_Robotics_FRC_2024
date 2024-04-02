@@ -13,6 +13,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
@@ -144,18 +146,11 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void setModuleStates(SwerveModuleState[] desiredStates)
     {
+      SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
       frontRight.setDesiredState(desiredStates[0]);
       frontLeft.setDesiredState(desiredStates[1]);
       backRight.setDesiredState(desiredStates[2]);
       backLeft.setDesiredState(desiredStates[3]);
-    }
-
-    public void setModuleStatesAuton(SwerveModuleState[] desiredStates)
-    {
-      frontRight.setDesiredStateAuton(desiredStates[0]);
-      frontLeft.setDesiredStateAuton(desiredStates[1]);
-      backRight.setDesiredStateAuton(desiredStates[2]);
-      backLeft.setDesiredStateAuton(desiredStates[3]);
     }
 
     public SwerveModuleState[] getModuleStates()
@@ -186,7 +181,7 @@ public class SwerveSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("X SPEED",robotRelativeSpeeds.vxMetersPerSecond);
       
       SwerveModuleState[] targetStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(robotRelativeSpeeds);
-      setModuleStatesAuton(targetStates);
+      setModuleStates(targetStates);
     }
 
           
@@ -226,7 +221,6 @@ public class SwerveSubsystem extends SubsystemBase {
       SmartDashboard.putBoolean("FL Turn Rev", frontLeft.getTurnMotorRev());
       SmartDashboard.putBoolean("BR Turn Rev", backRight.getTurnMotorRev());
       SmartDashboard.putBoolean("BL Turn Rev", backLeft.getTurnMotorRev());
-
-      
+    
   }
 }

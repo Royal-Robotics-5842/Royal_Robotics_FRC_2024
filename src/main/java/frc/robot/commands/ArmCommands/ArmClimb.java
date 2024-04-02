@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmAmp extends Command {
+public class ArmClimb extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
 
-  public ArmAmp(ArmSubsystem arm){
+  public ArmClimb(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
   }
@@ -19,7 +19,7 @@ public class ArmAmp extends Command {
   @Override
   public void initialize() 
   {
-    System.out.println("Arm amp Start");
+    System.out.println("Arm Climb Start");
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
 
@@ -28,14 +28,14 @@ public class ArmAmp extends Command {
   @Override
   public void execute()
   {
-    arm.moveArm(Constants.armConstants.ArmSource);
+    arm.moveArm(Constants.armConstants.ArmClimb);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted)
   {
-    System.out.println("Arm amp Start");
+    System.out.println("Arm Climb Start");
     arm.setSpeed(0);
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake); 
@@ -46,7 +46,7 @@ public class ArmAmp extends Command {
   @Override
   public boolean isFinished() {
 
-    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmSource)) <= 0.5))
+    if ((Math.abs(Math.abs(arm.ArmLeftEncoder.getPosition()) - Math.abs(Constants.armConstants.ArmClimb)) <= 0.5))
     {
       System.out.print("Arm Amp DONE");
       return true;

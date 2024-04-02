@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3,
-        "y": 5.56
+        "x": 1.65,
+        "y": 7.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2999999999999945,
-        "y": 5.56
+        "x": 1.65,
+        "y": 7.8
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.56
+        "x": 8.2,
+        "y": 7.45
       },
       "prevControl": {
-        "x": 1.6,
-        "y": 5.56
+        "x": 0.8190257821957083,
+        "y": 5.2417466997096165
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "IntakeNote",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "parallel",
         "data": {
@@ -50,20 +50,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 720.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": 0.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "4 Note Middle",
+  "folder": "Left - Amp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 90.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -55,7 +56,7 @@ public class SwerveModule {
         turnMotorRev = turnMotorReversed;
 
         //Telling it what mode to be in while not getting user input
-        driveMotor.setIdleMode(IdleMode.kBrake);
+        driveMotor.setIdleMode(IdleMode.kCoast);
         turnMotor.setIdleMode(IdleMode.kBrake);
 
         //Current limiting the motors
@@ -153,25 +154,19 @@ public class SwerveModule {
             return;
         }
         state = SwerveModuleState.optimize(state, getState().angle);
-        driveMotor.set(state.speedMetersPerSecond/DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        if(DriverStation.isAutonomousEnabled() == true)
+        {
+            driveMotor.set(state.speedMetersPerSecond/AutoConstants.kMaxSpeedMetersPerSecond);    
+        }
+        if(DriverStation.isAutonomousEnabled() == false)
+        {
+            driveMotor.set(state.speedMetersPerSecond/DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        }
         turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), state.angle.getDegrees()));
         // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
         // .getdegrees and .getangle
     }
 
-     public void setDesiredStateAuton(SwerveModuleState state)
-    {
-        if(Math.abs(state.speedMetersPerSecond) <= 0.01)
-        {
-            stop();
-            return;
-        }
-        state = SwerveModuleState.optimize(state, getState().angle);
-        driveMotor.set(state.speedMetersPerSecond/AutoConstants.kMaxSpeedMetersPerSecond);
-        turnMotor.set(turningPidController.calculate(getAbsoluteEncoderPositon(), state.angle.getDegrees()));
-        // .getdegrees? Should the optimization also be that? need to print those values and see the difference between
-        // .getdegrees and .getangle
-    }
     
     public void stop()
     {

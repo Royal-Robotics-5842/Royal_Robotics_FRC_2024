@@ -67,8 +67,8 @@ public final class Constants {
       public static final int kFrontRightTurnAbsoluteEncoderPort = 34;
       public static final int kBackRightTurnAbsoluteEncoderPort = 32;
 
-      public static final double kPhysicalMaxSpeedMetersPerSecond = 2.25; //Units.feetToMeters(15.1); //https://www.swervedrivespecialties.com/products/mk4i-swerve-module
-      public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.25 * Math.PI; //Value is based on above value from NEO
+      public static final double kPhysicalMaxSpeedMetersPerSecond = 1.1; //Units.feetToMeters(15.1); //https://www.swervedrivespecialties.com/products/mk4i-swerve-module
+      public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 1.75 * Math.PI; //Value is based on above value from NEO
       
       //public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4; //Dont want to run all swerve at max speed, dividing by 4
       //public static final double kTeleDrive MaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4 ; //Dont want to run all swerve at max speed, dividing by 4
@@ -85,8 +85,8 @@ public final class Constants {
       public static final double kMaxAngularSpeedRadiansPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond * AutonMultiplier;
       //public static final double kMaxAccelerationMetersPerSecondSquared = 2;
       //public static final double kMaxAngularAccelerationRadiansPerSecondSquared = 1;//Math.PI / 4;
-      public static final double kPXController =1.1; //Value is arbitrary
-      public static final double kPThetaController = 4.5; //Value is arbitrary
+      public static final double kPXController =2.2; //Value is arbitrary
+      public static final double kPThetaController = 2.2; //Value is arbitrary
 
   }
 
@@ -106,9 +106,12 @@ public final class Constants {
   public static final class armConstants 
   {
     public static double ArmIntake = 0;
-    public static double ArmShotSpeaker = 41;
+    public static double ArmShotSpeaker = 47;
     public static double ArmAmp = 56;
+    public static double ArmClimb = 95;
+    public static double ArmSource = 66;
 
+    
     public static int leftCANID = 41; 
     public static int rightCANID = 42;
   }

@@ -8,20 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.985430439329347,
-        "y": 3.790328301377324
+        "x": 1.3822050512420339,
+        "y": 5.503058542780373
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.81,
-        "y": 3.9
+        "x": 2.0,
+        "y": 4.1
       },
       "prevControl": {
-        "x": 2.71,
-        "y": 3.9
+        "x": 0.9234126234198337,
+        "y": 4.1
+      },
+      "nextControl": {
+        "x": 2.0999999999999988,
+        "y": 4.1
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.7,
+        "y": 4.1
+      },
+      "prevControl": {
+        "x": 2.23740328749349,
+        "y": 4.1
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "IntakeNote",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
         "data": {
@@ -62,19 +78,19 @@
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 4.0,
-    "maxAngularVelocity": 720.0,
-    "maxAngularAcceleration": 720.0
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "4 Note Middle",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

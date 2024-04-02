@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.ArmCommands.ArmAmp;
+import frc.robot.commands.ArmCommands.ArmSource;
+import frc.robot.commands.ArmCommands.ArmClimb;
 import frc.robot.commands.ArmCommands.ArmIntake;
 import frc.robot.commands.ArmCommands.ArmShotSpeaker;
 import frc.robot.commands.ArmCommands.ArmWithController;
@@ -67,21 +68,21 @@ public class RobotContainer {
           
       NamedCommands.registerCommand("ArmShoot", 
                                 new intakeNote(intake, -0.5).withTimeout(0.2)
-                                .andThen(new ShootActiveCmd(shooter, 3500)).alongWith(new ArmShotSpeaker(arm)));
+                                .andThen(new ShootActiveCmd(shooter, 3750)).alongWith(new ArmShotSpeaker(arm)));
 
       NamedCommands.registerCommand("ArmIntake", new StopShooter(shooter).withTimeout(0.1).alongWith(
                                 new ArmIntake(arm)));
 
-        NamedCommands.registerCommand("ArmAmp", new ArmAmp(arm));
+        NamedCommands.registerCommand("ArmAmp", new ArmSource(arm));
 
-      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.1));
+      NamedCommands.registerCommand("IntakeNoteforShoot", new intakeNote(intake, 1).withTimeout(0.2));
                           
       NamedCommands.registerCommand("IntakeNote", new intakeNote(intake, 0.95).withTimeout(3));
 
       NamedCommands.registerCommand("OuttakeNote", new intakeNote(intake, -1).withTimeout(1));
       
         // Build an auto chooser. This will use Commands.none() as the default option.
-        autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser = AutoBuilder.buildAutoChooser("4 Note");
 
         // Another option that allows you to specify the default auto by its name
         //autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
@@ -111,30 +112,23 @@ public class RobotContainer {
 
     m_driverController.a().onTrue(new ArmIntake(arm).alongWith(new StopShooter(shooter).withTimeout(0.2)));
 
-    m_driverController.x().onTrue(new ArmAmp(arm));
+    m_driverController.x().onTrue(new ArmSource(arm).alongWith(new StopShooter(shooter).withTimeout(0.2)));
 
     m_driverController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0));
-    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0));
+    m_driverController.rightTrigger().whileTrue(new intakeNote(intake, 1)).whileFalse(new intakeNote(intake, 0).withTimeout(0.1));
+    m_driverController.leftTrigger().whileTrue(new intakeNote(intake, -1)).whileFalse(new intakeNote(intake, 0).withTimeout(0.1));
 
     m_driverController.leftBumper().onTrue(new ArmWithController(arm, 0.25));
     m_driverController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
 
   
-     
-    
-
-
-//
 
 //OPERATOR CONTROLLER COMMANDS
     //m_operatorController.b().onTrue(new setTo0(swerveSubsystem, arm).withTimeout(0.5));
 
-    //m_operatorController.x().whileTrue(new ArmLimelight(arm).alongWith(new ShootActiveCmd(shooter, 5000)));
-
-    //m_operatorController.leftBumper().onTrue(new ArmWithController(arm, .25));
-    //m_operatorController.rightBumper().onTrue(new ArmWithController(arm, -0.25));
+    m_operatorController.x().onTrue(new ArmSource(arm));
+    m_operatorController.b().onTrue(new ArmClimb(arm));
 
     m_operatorController.y().onTrue(new ShootActiveCmd(shooter, 3500));
     m_operatorController.a().onTrue(new ShootActiveCmd(shooter, 0));
@@ -149,7 +143,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
    
-    //return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));
+    //return Commands.sequence(new ArmShotSpeaker(arm));//);.withTimeout(5).andThen(new intakeNote(intake, 1)));    
     return autoChooser.getSelected();
     //return new PathPlannerAuto("Blue, Middle - 3 Note");
     

@@ -3,37 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3,
-        "y": 5.56
+        "x": 0.7,
+        "y": 4.42
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2999999999999945,
-        "y": 5.56
+        "x": 0.7500000000000001,
+        "y": 4.333397459621556
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.56
+        "x": 4.017693080431205,
+        "y": 0.8505126920163761
       },
       "prevControl": {
-        "x": 1.6,
-        "y": 5.56
+        "x": 1.4014420821634435,
+        "y": 1.0538961618463785
+      },
+      "nextControl": {
+        "x": 5.014685068843709,
+        "y": 0.7730080144719413
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.5,
+        "y": 0.6
+      },
+      "prevControl": {
+        "x": 8.519046120504122,
+        "y": 0.6
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.7,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "IntakeNote",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 1.45,
       "command": {
         "type": "parallel",
         "data": {
@@ -50,20 +72,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 720.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 Note Middle",
+  "folder": "RightSide to Middle - 2 Note",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

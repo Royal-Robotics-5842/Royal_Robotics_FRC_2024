@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmAmp extends Command {
+public class ArmSource extends Command {
   /** Creates a new ArmtoSetpoint. */
   
   private final ArmSubsystem arm;
 
-  public ArmAmp(ArmSubsystem arm){
+  public ArmSource(ArmSubsystem arm){
     this.arm = arm;
     addRequirements(arm);
   }
@@ -19,7 +19,7 @@ public class ArmAmp extends Command {
   @Override
   public void initialize() 
   {
-    System.out.println("Arm amp Start");
+    System.out.println("Arm Source Start");
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake);
 
@@ -35,7 +35,7 @@ public class ArmAmp extends Command {
   @Override
   public void end(boolean interrupted)
   {
-    System.out.println("Arm amp Start");
+    System.out.println("Arm Source Start");
     arm.setSpeed(0);
     arm.ArmRight.setIdleMode(IdleMode.kBrake);
     arm.ArmLeft.setIdleMode(IdleMode.kBrake); 
